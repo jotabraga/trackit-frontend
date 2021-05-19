@@ -40,7 +40,7 @@ export default function MainPage(){
 
         <button onClick={register}>Cadastrar</button>
 
-        <Link to={"/"}> <CadastreSe>Não tem uma conta? Cadastre-se!</CadastreSe> </Link>
+        <Link to={"/"}> <CadastreSe>Já tem uma conta? Faça login!</CadastreSe> </Link>
 
     </Register>
 

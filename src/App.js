@@ -7,12 +7,14 @@ export default function App() {
 
     return(
         <BrowserRouter>
+
+
            
             
             <Switch>  
 
                 <Route path="/" exact>
-                    <MainPage />
+                <Habits />
                 </Route>
 
                 <Route path="/cadastro" exact>
@@ -21,7 +23,7 @@ export default function App() {
 
                 <Route path="/habitos" exact>
                     <Habits />
-                </Route>
+                </Route> 
 
 
             </Switch>

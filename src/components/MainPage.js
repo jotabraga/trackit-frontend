@@ -22,10 +22,7 @@ export default function MainPage(){
           body
         );
         request.then((response) => setToken(response.data.token));
-      }
-
-      
-
+      }     
 
     return(
         <Login>
