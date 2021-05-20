@@ -4,6 +4,9 @@ import logo from "../images/logo.jpg";
 import { useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import ReactLoading from 'react-loading';
+
+
 
 export default function MainPage(){
 
@@ -35,6 +38,8 @@ export default function MainPage(){
             <button onClick={login}>Entrar</button>
 
             <Link to={"/cadastro"}> <CadastreSe>Não tem uma conta? Cadastre-se!</CadastreSe> </Link>
+
+            <ReactLoading type={'bubbles'} color={'#000'} height={'20%'} width={'20%'} />
 
         </Login>
     );
@@ -84,3 +89,4 @@ const CadastreSe = styled.div`
     color: #52B6FF;
     text-decoration: underline;
 `;
+

@@ -12,7 +12,7 @@ export default function App() {
             <Switch>  
 
                 <Route path="/" exact>
-                <Today />
+                <MainPage />
                 </Route>
 
                 <Route path="/cadastro" exact>
