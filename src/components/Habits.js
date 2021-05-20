@@ -1,5 +1,6 @@
 import styled from 'styled-components';
-import {React, useState } from "react";
+
+import {React, useState, createContext } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import bob from "../images/bob.png";
@@ -11,6 +12,16 @@ export default function Habits(){
 
     const [adding, setAdding] = useState(false);
     const [habitName, setHabitname] = useState("");
+    const UserContext = createContext();
+
+
+    const config = {
+        headers: {
+            "Authorization": "Bearer token_recebido"
+        }
+    }
+
+    // axios.post("http://meusite.com/messages", body, config);
 
 
     return(
@@ -101,7 +112,7 @@ const Header = styled.div`
     color: #fff;
     p{
         font-size: 39px;
-    } 
+    }    
 `;
 
 const Circle = styled.div`
@@ -214,18 +225,19 @@ const Footer = styled.div`
 const NewHabitBox = styled.div`
     background: #fff;
     padding: 18px;
-    width: 340px;
+    width: auto;
     height: 180px;
     border-radius: 5px;
     margin-top: 30px;
     margin-bottom: 30px;
 
     input{
-        width: 303px;
+        width: 100%;
         height: 45px;
         margin-bottom: 6px;
         border-radius: 5px;
         border: 1px #d4d4d4 solid;
+
         padding-left: 11px;
         font-size: 20px;
     }
@@ -259,7 +271,7 @@ const Choices = styled.div`
 const Routine = styled.div` 
     background: #fff;
     padding: 18px;
-    width: 340px;
+    width: auto;
     height: 91px;
     border-radius: 5px;
     margin-bottom: 10px;
@@ -273,10 +285,10 @@ const Routine = styled.div`
 `;
 
 const TrashCan = styled(TrashFill)`
-    height: 15px;
-    width: 13px;
+    height: 18px;
+    width: 16px;
     color: #666666;
     position: absolute;
     top: 11px;
-    left: 317px;
+    left: 83vw;
 `;

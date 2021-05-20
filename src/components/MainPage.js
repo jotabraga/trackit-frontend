@@ -1,16 +1,18 @@
 import styled from 'styled-components';
-import React from 'react';
+import React, { useContext } from 'react';
 import logo from "../images/logo.jpg";
 import { useState } from "react";
 import axios from "axios";
 import { Link, useHistory } from "react-router-dom";
 import ReactLoading from 'react-loading';
+import UserContext from "./UserContext";
 
 
 
 export default function MainPage(){
 
-    const [token, setToken] = useState("");
+    const {setUser} = useContext(UserContext);
+
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [disabled, setDisabled] = useState(false);
@@ -18,14 +20,12 @@ export default function MainPage(){
 
     let history = useHistory();
 
-
     function login(e) {
 
         e.preventDefault();
 
         setDisabled(!disabled);
         setLoading(<ReactLoading type={'bubbles'} color={'#fff'} height={'10%'} width={'20%'} />);
-
 
         const body = {
           email,
@@ -36,7 +36,7 @@ export default function MainPage(){
 
         request.then((response) => {
             console.log(response);
-            setToken(response.data.token);
+            setUser(response.data);
             history.push("/habitos");
         });
 
