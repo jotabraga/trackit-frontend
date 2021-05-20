@@ -9,19 +9,3 @@ body{
     font-family: 'Lexend Deca', sans-serif;
 }
 
-
-.h{
-    width: 100vw;
-    height: 70px;
-    background: #126BA5;
-    padding-left: 18px;
-    padding-right: 18px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    font-family: 'Playball', cursive;
-    color: #fff;
-    flex-direction: column;
-    justify-content: first baseline;
-}
-

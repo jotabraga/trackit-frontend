@@ -4,11 +4,14 @@ import {React, useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import bob from "../images/bob.png";
+
 import {AddSquare} from '@styled-icons/fluentui-system-filled'
+import {TrashFill} from '@styled-icons/bootstrap'
 
 export default function Habits(){
 
     const [adding, setAdding] = useState(false);
+    const [habitName, setHabitname] = useState("");
 
 
     return(
@@ -25,8 +28,54 @@ export default function Habits(){
 
             <AddNewHabit>
                 <Title>Meus hábitos<AddSquareBlue></AddSquareBlue></Title>
-            </AddNewHabit> 
+            </AddNewHabit>
+
+            <NewHabitBox>
+
+                <input type="text" placeholder="nome do hábito" value={habitName} onChange={(e) => setHabitname(e.target.value)} />
+
+                <Weekdays>
+                    <button>D</button>
+                    <button>S</button>
+                    <button>T</button>
+                    <button>Q</button>
+                    <button>Q</button>
+                    <button>S</button>
+                    <button>S</button>
+                </Weekdays>
+
+                <Choices>
+                    <p>Cancelar</p><button>Salvar</button>
+                </Choices>
+                
+
+            </NewHabitBox>
+
+            <Routine>
+                <p>Ler capitulo 1 livro tal</p>
+                <TrashCan></TrashCan>
+
+                <Weekdays>
+                    <button>D</button>
+                    <button>S</button>
+                    <button>T</button>
+                    <button>Q</button>
+                    <button>Q</button>
+                    <button>S</button>
+                    <button>S</button>
+                </Weekdays>
+
+            </Routine>
+
             <NoHabitsYet>Você não tem nenhum hábito cadastrado ainda. Adicione um hábito para começar a trackear!</NoHabitsYet>
+
+            
+
+            <Footer>
+                <p>Hábitos</p>
+                <button>Hoje</button>
+                <p>Histórico</p>
+            </Footer>
 
         </HabitsContent>
 
@@ -53,7 +102,16 @@ const Header = styled.div`
     color: #fff;
     p{
         font-size: 39px;
-    }
+    }    <Header>
+
+    <p>TrackIt</p>
+    <Circle><img src={bob} alt="profile-pic" /></Circle>
+    
+</Header>
+
+<Day>
+        <Title>Segunda, 17/05</Title>
+</Day>
 `;
 
 const Circle = styled.div`
@@ -96,6 +154,7 @@ const Title = styled.div`
     margin-top: 92px;
     color: #126BA5;
     font-size: 23px;
+    line-height: 35px;
 `;
 
 const AddSquareBlue = styled(AddSquare)`
@@ -110,4 +169,122 @@ const NoHabitsYet = styled.div`
     flex-wrap: wrap;
     margin-top: 30px;
     color: #666666;
+`;
+const Weekdays = styled.div`
+    display: flex;
+    justify-content: space-between;
+    margin-top: 8px;
+    margin-bottom: 30px;
+    width: auto;
+    height: auto;
+
+    button{
+        width: 30px;
+        height: 30px;
+        background: #fff;
+        color: #dbdbdb;
+        font-size: 20px;
+        border: 1px solid #d5d5d5;
+        border-radius: 5px;
+    }
+`;
+const Footer = styled.div`
+    position: fixed;
+    background: #fff;
+    display: flex;
+    justify-content: space-between;
+    left: 0;
+    bottom: 0;
+    height: 70px;
+    width: 100vw;
+    padding-left: 30px;
+    padding-right: 30px;
+    align-text: center;
+
+    p{
+        font-size: 18px;
+        color: #52B6FF;   
+        line-height: 70px;            
+    }
+    button{
+        position: fixed;
+        left: calc(50vw - 45.5px);
+        bottom: 2px;
+        z-index: 2;
+        height: 91px;
+        width: 91px;
+        color: #fff;
+        background: #52B6FF;
+        border-radius: 50%;
+        font-size: 18px;
+        border: none;
+        margin-bottom: 15px;
+    }
+`;
+const NewHabitBox = styled.div`
+    background: #fff;
+    padding: 18px;
+    width: 340px;
+    height: 180px;
+    border-radius: 5px;
+    margin-top: 30px;
+    margin-bottom: 30px;
+
+    input{
+        width: 303px;
+        height: 45px;
+        margin-bottom: 6px;
+        border-radius: 5px;
+        border: 1px #d4d4d4 solid;
+        color: #dbdbdb;
+        padding-left: 11px;
+        font-size: 20px;
+    }
+    
+   
+`;
+
+const Choices = styled.div`
+    display: flex;
+    justify-content: flex-end;    
+
+    button{
+        border-radius: 5px;
+        background: #52B6FF;
+        color: #fff;
+        width: 84px;
+        height: 35px;
+        border: none;
+    }
+    p{
+        font-size: 16px;
+        color: #52B6FF;
+        line-height: 35px;
+        margin-right: 15px;
+    }
+`;
+
+const Routine = styled.div` 
+    background: #fff;
+    padding: 18px;
+    width: 340px;
+    height: 91px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    position: relative;
+
+    p{
+        color: #666666;
+        font-size: 20px;
+    }
+
+`;
+
+const TrashCan = styled(TrashFill)`
+    height: 15px;
+    width: 13px;
+    color: #666666;
+    position: absolute;
+    top: 11px;
+    left: 317px;
 `;
