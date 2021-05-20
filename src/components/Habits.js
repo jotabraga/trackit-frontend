@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-
 import {React, useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
@@ -102,16 +101,7 @@ const Header = styled.div`
     color: #fff;
     p{
         font-size: 39px;
-    }    <Header>
-
-    <p>TrackIt</p>
-    <Circle><img src={bob} alt="profile-pic" /></Circle>
-    
-</Header>
-
-<Day>
-        <Title>Segunda, 17/05</Title>
-</Day>
+    } 
 `;
 
 const Circle = styled.div`
@@ -236,9 +226,11 @@ const NewHabitBox = styled.div`
         margin-bottom: 6px;
         border-radius: 5px;
         border: 1px #d4d4d4 solid;
-        color: #dbdbdb;
         padding-left: 11px;
         font-size: 20px;
+    }
+    input::placeholder{
+        color: #DBDBDB;
     }
     
    

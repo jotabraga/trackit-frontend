@@ -3,26 +3,43 @@ import React from 'react';
 import logo from "../images/logo.jpg";
 import { useState } from "react";
 import axios from "axios";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
+import ReactLoading from 'react-loading';
 
 export default function MainPage(){
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [name, setName] = useState("");
-    const [picture, setPicture] = useState("");
+    const [image, setImage] = useState("");
+    const [disabled, setDisabled] = useState(false);
+    const [loading, setLoading] = useState("Cadastrar");
 
-    function register(){
+    let history = useHistory();
+
+    function register(e){
+
+        e.preventDefault();
+        
+        setDisabled(!disabled);
+        setLoading(<ReactLoading type={'bubbles'} color={'#fff'} height={'10%'} width={'20%'} />);
+
         const body = {
             email,
-            password,
             name,
-            picture
+            image,
+            password
         };
 
-        const request = axios.post("https://mock-api.bootcamp.respondeai.com.br/api/v2/exercise-login/auth/login", body);
-        request.then((response) => console.log(response));
+        const request = axios.post("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/sign-up", body);
 
+        request.then((e) => history.push("/"));
+
+        request.catch(e => {
+            setDisabled(!disabled);
+            setLoading("Cadastrar");
+            console.log(e)
+        });
     }
 
     return(
@@ -30,17 +47,23 @@ export default function MainPage(){
     <Register>
         <img src={logo} alt="logo"/>
 
-        <input type="text" placeholder="email" value={email} onChange={(e) => setEmail(e.target.value)} />
+        <form onSubmit={register}>
 
-        <input type="password" placeholder="senha" value={password} onChange={(e) => setPassword(e.target.value)} />
+            <input type="email" required placeholder="email" disabled={disabled} value={email} onChange={(e) => setEmail(e.target.value)} />
 
-        <input type="text" placeholder="nome" value={name} onChange={(e) => setName(e.target.value)} />
+            <input type="password" required placeholder="senha" disabled={disabled} value={password} onChange={(e) => setPassword(e.target.value)} />
 
-        <input type="text" placeholder="foto" value={picture} onChange={(e) => setPicture(e.target.value)} />
+            <input type="text" required placeholder="nome" disabled={disabled} value={name} onChange={(e) => setName(e.target.value)} />
 
-        <button onClick={register}>Cadastrar</button>
+            <input type="url" required placeholder="foto" disabled={disabled} value={image} onChange={(e) => setImage(e.target.value)} />
 
-        <Link to={"/"}> <CadastreSe>Já tem uma conta? Faça login!</CadastreSe> </Link>
+            <button type="submit"> {loading} </button>
+
+            <Link to={"/"}> <p>Já tem uma conta? Faça login!</p> </Link>
+
+        </form>
+
+       
 
     </Register>
 
@@ -63,31 +86,46 @@ const Register = styled.div`
         height: 180px;
         margin-bottom: 32px;
     }
-    input{
-        width: 303px;
-        height: 45px;
-        margin-bottom: 6px;
-        border-radius: 5px;
-        border: 1px #d4d4d4 solid;
-        color: #dbdbdb;
-        padding-left: 11px;
-        font-size: 20px;
-    }
+    
     button{
         background: #52b6ff;
         color: #fff;
         border-radius: 5px;
         border: 1px #d4d4d4 solid;
         text-align: center;
+        display: flex;
+        justify-content: center;
+        line-height: 45px;
         width: 303px;
         height: 45px;
         font-size: 21px;
-        margin-bottom: 25px;
+        margin-bottom: 15px;
     }
-    
-`;
-const CadastreSe = styled.div`
-    font-size: 14px;
-    color: #52B6FF;
-    text-decoration: underline;
+
+    form{
+        width: 303px;
+        height: 45px;        
+
+        input{
+            width: 303px;
+            height: 45px;
+            margin-bottom: 6px;
+            border-radius: 5px;
+            border: 1px #d4d4d4 solid;
+            color: #dbdbdb;
+            padding-left: 11px;
+            font-size: 20px;
+        }
+        
+        p{
+            font-size: 14px;
+            color: #52B6FF;
+            text-decoration: underline;
+            text-align: center;
+        }
+        svg{
+            height: 45px;
+            width: 60px;
+        }
+    }    
 `;
