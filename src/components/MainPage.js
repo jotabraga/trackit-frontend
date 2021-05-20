@@ -35,7 +35,6 @@ export default function MainPage(){
         const request = axios.post("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/login", body);
 
         request.then((response) => {
-            console.log(response);
             setUser(response.data);
             history.push("/habitos");
         });

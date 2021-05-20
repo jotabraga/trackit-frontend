@@ -1,27 +1,35 @@
 import styled from 'styled-components';
-
-import {React, useState, createContext } from "react";
+import {React, useContext, useState, useEffect } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
-import bob from "../images/bob.png";
-
 import {AddSquare} from '@styled-icons/fluentui-system-filled'
 import {TrashFill} from '@styled-icons/bootstrap'
+import UserContext from "./UserContext";
 
 export default function Habits(){
 
-    const [adding, setAdding] = useState(false);
+    const {user} = useContext(UserContext);
     const [habitName, setHabitname] = useState("");
-    const UserContext = createContext();
+    const [addBox, setAddbox] = useState("none");
 
+    useEffect(() => {
 
-    const config = {
-        headers: {
-            "Authorization": "Bearer token_recebido"
+        const config = {
+            headers: {
+                "Authorization": user.token
+            }
         }
-    }
+        
+        const promise = axios.get("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits",config);
 
-    // axios.post("http://meusite.com/messages", body, config);
+        promise.then((answer) => {
+                                  
+        });
+
+        console.log(config);
+
+    }, [user.token]);   
+
 
 
     return(
@@ -30,17 +38,17 @@ export default function Habits(){
         <Header>
 
             <p>TrackIt</p>
-            <Circle><img src={bob} alt="profile-pic" /></Circle>
+            <Circle><img src={user.image} alt="profile-pic" /></Circle>
             
         </Header>
 
         <HabitsContent>
 
             <AddNewHabit>
-                <Title>Meus hábitos<AddSquareBlue></AddSquareBlue></Title>
+                <Title>Meus hábitos<AddSquareBlue onClick={() => setAddbox("block")}></AddSquareBlue></Title>
             </AddNewHabit>
 
-            <NewHabitBox>
+            <NewHabitBox visibility={addBox}>
 
                 <input type="text" placeholder="nome do hábito" value={habitName} onChange={(e) => setHabitname(e.target.value)} />
 
@@ -55,7 +63,7 @@ export default function Habits(){
                 </Weekdays>
 
                 <Choices>
-                    <p>Cancelar</p><button>Salvar</button>
+                    <p onClick={() => setAddbox("none")} >Cancelar</p><button>Salvar</button>
                 </Choices>
                 
 
@@ -83,7 +91,11 @@ export default function Habits(){
 
             <Footer>
                 <p>Hábitos</p>
-                <button>Hoje</button>
+
+                <Link to="/hoje">
+                    <button>Hoje</button>
+                </Link>
+
                 <p>Histórico</p>
             </Footer>
 
@@ -144,7 +156,8 @@ const HabitsContent = styled.div`
 const AddNewHabit = styled.div`
     display: flex;
     justify-content: space-between;
-    align-itens: center;    
+    align-itens: center;   
+    display: ${props => props.visibility};
 `;
 
 const Title = styled.div`
@@ -229,7 +242,8 @@ const NewHabitBox = styled.div`
     height: 180px;
     border-radius: 5px;
     margin-top: 30px;
-    margin-bottom: 30px;
+    display: ${props => props.visibility};
+    
 
     input{
         width: 100%;
@@ -275,6 +289,7 @@ const Routine = styled.div`
     height: 91px;
     border-radius: 5px;
     margin-bottom: 10px;
+    margin-top:30px;
     position: relative;
 
     p{
