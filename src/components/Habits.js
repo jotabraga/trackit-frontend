@@ -3,7 +3,6 @@ import {React, useContext, useState, useEffect } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import {AddSquare} from '@styled-icons/fluentui-system-filled'
-
 import UserContext from "./UserContext";
 import Weekday from "./Weekday";
 import Rote from "./Rote";
@@ -51,8 +50,12 @@ export default function Habits(){
             }
         }
         const promise = axios.post("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits", body, config);
-        promise.then(() => setHabits([...habits]));
+        promise.then((response) => setHabits([...habits, response.data ]));
     }
+
+    
+    console.log(habits);
+    console.log(habits.id);
 
 
 
@@ -84,11 +87,12 @@ export default function Habits(){
                 </Choices>
             </NewHabitBox>
 
-            <Routine>
-                {habits.map((habit) => <Rote key={habit.id} days={habit.days} name={habits.name} week={week} />)}      
+            <Routine visibility={habits.length > 0 ? "block" : "none"}>
+                {habits.map((habit) => <Rote key={habit.id} days={habit.days} name={habit.name} week={week} id={habit.id} 
+                habits={habits} setHabits={setHabits} token={user.token} />)}      
             </Routine>
 
-            <NoHabitsYet>Você não tem nenhum hábito cadastrado ainda. Adicione um hábito para começar a trackear!</NoHabitsYet>
+            <NoHabitsYet visibility={habits.length > 0 ? "none" : "flex"} >Você não tem nenhum hábito cadastrado ainda. Adicione um hábito para começar a trackear!</NoHabitsYet>
 
             
 
@@ -182,7 +186,7 @@ const AddSquareBlue = styled(AddSquare)`
 
 const NoHabitsYet = styled.div`
     font-size: 18px;
-    display: flex;
+    display: ${props => props.visibility};
     flex-wrap: wrap;
     margin-top: 30px;
     color: #666666;
@@ -286,7 +290,7 @@ const Routine = styled.div`
     margin-bottom: 10px;
     margin-top:30px;
     position: relative;
-
+    display: ${props => props.visibility};
     p{
         color: #666666;
         font-size: 20px;

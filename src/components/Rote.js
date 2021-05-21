@@ -1,20 +1,43 @@
 import {TrashFill} from '@styled-icons/bootstrap'
 import Weekday from "./Weekday";
 import styled from 'styled-components';
+import axios from "axios";
 
-export default function Route(props){
+export default function Rote(props){
 
-    const {week, days, name } = props;
+    const { week, days, name, id, token, habits, setHabits } = props;
+
+    function excludeHabit(id){
+        console.log(id);
+        
+        if(window.confirm("Deseja excluir o hábito?")){
+            
+
+                const config = {
+                    headers: 
+                    {
+                        Authorization: `Bearer ${token}`
+                    }
+                }
+                const promise = axios.delete(`https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${id}`, config);
+
+                
+                promise.then(() => setHabits([...habits]));
+            
+        }
+    }
+
+
 
     return(
-        <>
-        <p>{name}</p>
-                <TrashCan></TrashCan>
+        <div>
+            <p>{name}</p>
+            <TrashCan onClick={(() => excludeHabit(id))} ></TrashCan>
 
-                <Weekdays>
-                    {week.map((day) => <Weekday key={day.id} id={day.id} simbol={day.letter} selected={days} />)} 
-                </Weekdays>
-        </>
+            <Weekdays>
+                {week.map((day) => <Weekday key={day.id} id={day.id} simbol={day.letter} selected={days} />)} 
+            </Weekdays>
+        </div>
     );
 }
 
