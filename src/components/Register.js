@@ -31,6 +31,7 @@ export default function MainPage(){
             password
         };
 
+
         const request = axios.post("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/sign-up", body);
 
         request.then((e) => history.push("/"));

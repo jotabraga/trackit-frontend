@@ -16,7 +16,7 @@ export default function MainPage(){
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [disabled, setDisabled] = useState(false);
-    const [loading, setLoading] = useState("Entrar");
+    const [loading, setLoading] = useState(<h1>Entrar</h1>);
 
     let history = useHistory();
 
@@ -99,11 +99,18 @@ const Login = styled.div`
         color: #fff;
         border-radius: 5px;
         border: 1px #d4d4d4 solid;
-        text-align: center;
+        display: flex;
+        justify-content: center;
+        align-itens: center;
         width: 303px;
         height: 45px;
         font-size: 21px;
         margin-bottom: 25px;
+
+        svg{
+            height: 45px;
+            width: 60px;
+        }        
     }    
     form{
         width: 303px;
@@ -126,10 +133,11 @@ const Login = styled.div`
             text-decoration: underline;
             text-align: center;
         }
-        svg{
-            height: 45px;
-            width: 60px;
+        h1{
+            line-height: 45px;
+            color: #fff;
         }
+        
     }    
 `;
 

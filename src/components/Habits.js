@@ -3,32 +3,56 @@ import {React, useContext, useState, useEffect } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import {AddSquare} from '@styled-icons/fluentui-system-filled'
-import {TrashFill} from '@styled-icons/bootstrap'
+
 import UserContext from "./UserContext";
+import Weekday from "./Weekday";
+import Rote from "./Rote";
 
 export default function Habits(){
 
     const {user} = useContext(UserContext);
     const [habitName, setHabitname] = useState("");
     const [addBox, setAddbox] = useState("none");
+    const week = [{letter:"D", id:0},{letter:"S", id:1},{letter:"T", id:2},{letter:"Q", id:3},{letter:"Q", id:4},{letter:"S", id:5},{letter:"S", id:6}];
+    const [selected, setSelected] = useState([]);
+    const [habits, setHabits] = useState([]);
+    
 
     useEffect(() => {
-
+        
         const config = {
-            headers: {
-                "Authorization": user.token
+            headers: 
+            {
+                Authorization: `Bearer ${user.token}`
             }
         }
         
-        const promise = axios.get("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits",config);
+        const promise = axios.get("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits", config);
 
         promise.then((answer) => {
-                                  
+            setHabits(answer.data);                                  
         });
 
-        console.log(config);
-
     }, [user.token]);   
+
+    
+
+    function saveHabit(){
+        
+        const body = {
+            name: habitName,
+            days: selected
+        }
+
+        const config = {
+            headers: 
+            {
+                Authorization: `Bearer ${user.token}`
+            }
+        }
+        const promise = axios.post("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits", body, config);
+        promise.then(() => setHabits([...habits]));
+    }
 
 
 
@@ -49,40 +73,19 @@ export default function Habits(){
             </AddNewHabit>
 
             <NewHabitBox visibility={addBox}>
-
                 <input type="text" placeholder="nome do hábito" value={habitName} onChange={(e) => setHabitname(e.target.value)} />
 
                 <Weekdays>
-                    <button>D</button>
-                    <button>S</button>
-                    <button>T</button>
-                    <button>Q</button>
-                    <button>Q</button>
-                    <button>S</button>
-                    <button>S</button>
+                    {week.map((day) => <Weekday key={day.id} id={day.id} simbol={day.letter} selected={selected} setSelected={setSelected} />)} 
                 </Weekdays>
 
                 <Choices>
-                    <p onClick={() => setAddbox("none")} >Cancelar</p><button>Salvar</button>
+                    <p onClick={() => setAddbox("none")} >Cancelar</p><button onClick={() => saveHabit()}>Salvar</button>
                 </Choices>
-                
-
             </NewHabitBox>
 
             <Routine>
-                <p>Ler capitulo 1 livro tal</p>
-                <TrashCan></TrashCan>
-
-                <Weekdays>
-                    <button>D</button>
-                    <button>S</button>
-                    <button>T</button>
-                    <button>Q</button>
-                    <button>Q</button>
-                    <button>S</button>
-                    <button>S</button>
-                </Weekdays>
-
+                {habits.map((habit) => <Rote key={habit.id} days={habit.days} name={habits.name} week={week} />)}      
             </Routine>
 
             <NoHabitsYet>Você não tem nenhum hábito cadastrado ainda. Adicione um hábito para começar a trackear!</NoHabitsYet>
@@ -184,7 +187,7 @@ const NoHabitsYet = styled.div`
     margin-top: 30px;
     color: #666666;
 `;
-const Weekdays = styled.div`
+const Weekdays = styled.ul`
     display: flex;
     justify-content: space-between;
     margin-top: 8px;
@@ -192,15 +195,7 @@ const Weekdays = styled.div`
     width: auto;
     height: auto;
 
-    button{
-        width: 30px;
-        height: 30px;
-        background: #fff;
-        color: #dbdbdb;
-        font-size: 20px;
-        border: 1px solid #d5d5d5;
-        border-radius: 5px;
-    }
+    
 `;
 const Footer = styled.div`
     position: fixed;
@@ -299,11 +294,3 @@ const Routine = styled.div`
 
 `;
 
-const TrashCan = styled(TrashFill)`
-    height: 18px;
-    width: 16px;
-    color: #666666;
-    position: absolute;
-    top: 11px;
-    left: 83vw;
-`;
