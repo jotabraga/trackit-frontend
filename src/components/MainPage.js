@@ -122,7 +122,7 @@ const Login = styled.div`
             margin-bottom: 6px;
             border-radius: 5px;
             border: 1px #d4d4d4 solid;
-            color: #dbdbdb;
+            color: #000;
             padding-left: 11px;
             font-size: 20px;
         }

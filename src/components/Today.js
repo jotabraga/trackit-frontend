@@ -1,15 +1,44 @@
 import styled from 'styled-components';
-import {React, useState } from "react";
-// import axios from "axios";
-// import { Link } from "react-router-dom";
+import {React, useContext, useState, useEffect } from "react";
+import axios from "axios";
+import { Link } from "react-router-dom";
 import bob from "../images/bob.png";
 import {CheckSquareFill} from '@styled-icons/bootstrap'
+import 'dayjs/locale/pt-br';
+import UserContext from "./UserContext";
 
 
 
 
 
 export default function Today(){
+
+    const dayjs = require('dayjs');
+    let now = dayjs();
+    let today = now.format("dddd, D / MMMM / YYYY");
+    console.log(today);
+
+    const {user} = useContext(UserContext);
+
+
+    useEffect(() => {
+        
+        const config = {
+            headers: 
+            {
+                Authorization: `Bearer ${user.token}`
+            }
+        }
+        
+        const promise = axios.get("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits", config);
+
+        promise.then((answer) => {
+                                            
+        });
+
+    }, [user.token]); 
+
+    
 
     return(
 
@@ -24,7 +53,7 @@ export default function Today(){
             </Header>
 
             <Day>
-                    <Title>Segunda, 17/05</Title>
+                    <Title>{today}</Title>
                     <p>Nenhum hábito concluído ainda</p>
             </Day>
 
@@ -38,8 +67,13 @@ export default function Today(){
             </Routine>
 
             <Footer>
-                <p>Hábitos</p>
+
+                <Link to="/habitos"> 
+                    <p>Hábitos</p>
+                </Link>
+
                 <button>Hoje</button>
+
                 <p>Histórico</p>
             </Footer>
 

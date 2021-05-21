@@ -1,7 +1,7 @@
 import {TrashFill} from '@styled-icons/bootstrap'
-import Weekday from "./Weekday";
 import styled from 'styled-components';
 import axios from "axios";
+
 
 export default function Rote(props){
 
@@ -22,22 +22,25 @@ export default function Rote(props){
                 const promise = axios.delete(`https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${id}`, config);
 
                 
-                promise.then(() => setHabits([...habits]));
+                promise.then(() => setHabits([...habits.filter(item => item.id !== id)]));
             
         }
     }
 
-
-
+  
     return(
-        <div>
+        <Routine visibility={habits.length > 0 ? "block" : "none"}>
             <p>{name}</p>
             <TrashCan onClick={(() => excludeHabit(id))} ></TrashCan>
 
             <Weekdays>
-                {week.map((day) => <Weekday key={day.id} id={day.id} simbol={day.letter} selected={days} />)} 
+                {week.map((day) => (
+                  <Day key={day.id} color={days.includes(day.id) === true ? "#CFCFCF" : "#FFF"}>
+                      {day.letter}
+                  </Day>
+                ))} 
             </Weekdays>
-        </div>
+        </Routine>
     );
 }
 
@@ -57,4 +60,32 @@ const TrashCan = styled(TrashFill)`
     position: absolute;
     top: 11px;
     left: 83vw;
+`;
+const Day = styled.li`
+    width: 30px;
+    height: 30px;
+    background: ${props => props.color};
+    color: #dbdbdb;
+    font-size: 20px;
+    border: 1px solid #d5d5d5;
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    align-itens: center;
+`;
+const Routine = styled.div` 
+    background: #fff;
+    padding: 18px;
+    width: auto;
+    height: 91px;
+    border-radius: 5px;
+    margin-bottom: 8px;
+    margin-top:15px;
+    position: relative;
+    display: ${props => props.visibility};
+    p{
+        color: #666666;
+        font-size: 20px;
+    }
+
 `;

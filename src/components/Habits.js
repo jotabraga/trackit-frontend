@@ -6,6 +6,7 @@ import {AddSquare} from '@styled-icons/fluentui-system-filled'
 import UserContext from "./UserContext";
 import Weekday from "./Weekday";
 import Rote from "./Rote";
+import { CircularProgressbar } from 'react-circular-progressbar';
 
 export default function Habits(){
 
@@ -55,7 +56,7 @@ export default function Habits(){
 
     
     console.log(habits);
-    console.log(habits.id);
+
 
 
 
@@ -87,10 +88,10 @@ export default function Habits(){
                 </Choices>
             </NewHabitBox>
 
-            <Routine visibility={habits.length > 0 ? "block" : "none"}>
+            
                 {habits.map((habit) => <Rote key={habit.id} days={habit.days} name={habit.name} week={week} id={habit.id} 
                 habits={habits} setHabits={setHabits} token={user.token} />)}      
-            </Routine>
+        
 
             <NoHabitsYet visibility={habits.length > 0 ? "none" : "flex"} >Você não tem nenhum hábito cadastrado ainda. Adicione um hábito para começar a trackear!</NoHabitsYet>
 
@@ -281,20 +282,5 @@ const Choices = styled.div`
     }
 `;
 
-const Routine = styled.div` 
-    background: #fff;
-    padding: 18px;
-    width: auto;
-    height: 91px;
-    border-radius: 5px;
-    margin-bottom: 10px;
-    margin-top:30px;
-    position: relative;
-    display: ${props => props.visibility};
-    p{
-        color: #666666;
-        font-size: 20px;
-    }
 
-`;
 
