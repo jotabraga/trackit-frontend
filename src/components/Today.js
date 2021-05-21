@@ -2,25 +2,24 @@ import styled from 'styled-components';
 import {React, useContext, useState, useEffect } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
-import bob from "../images/bob.png";
 import {CheckSquareFill} from '@styled-icons/bootstrap'
-import 'dayjs/locale/pt-br';
+import "dayjs/locale/pt-br";
 import UserContext from "./UserContext";
 import { CircularProgressbar } from 'react-circular-progressbar';
 
 
 export default function Today(){
-
+   
     const dayjs = require('dayjs');
-    let now = dayjs();
-    let today = now.format("dddd, D / MMMM / YYYY");
+    let now = dayjs().locale('pt-br');
+    let today = now.format("dddd, DD/MM ");
     console.log(today);
     const [dailyHabit, setDailyhabit] = useState([]);
-    const [doneHabits, setDonehabits] = useState(0);
+    const [doneHabits, setDonehabits] = useState([]);
     const [percent, setPercent] = useState(0.0);
 
-    const {user} = useContext(UserContext);
 
+    const {user} = useContext(UserContext);
 
     useEffect(() => {
         
@@ -36,10 +35,13 @@ export default function Today(){
         promise.then((answer) => {
 
             setDailyhabit(answer.data);
+            console.log(answer.data);
+            console.log(doneHabits);
+
                                             
         });
-
     }, [user.token]); 
+
 
     function payHabit(id, condition){
 
@@ -55,8 +57,9 @@ export default function Today(){
             }
             const promise = axios.post(`https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${id}/check`, body, config);
             promise.then(()=> {
-                setDonehabits(doneHabits+1);
-                setPercent((parseFloat(doneHabits/dailyHabit.length)).toFixed(1));
+                setDonehabits(...doneHabits, id);
+                setPercent((parseFloat(doneHabits.length/dailyHabit.length)).toFixed(1));
+                console.log(doneHabits);
             });
 
         }
@@ -70,8 +73,8 @@ export default function Today(){
                     Authorization: `Bearer ${user.token}`
                 }
             }
-            const promise = axios.post(`https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${id}/check`, body, config);
-            promise.then(()=>setDonehabits(doneHabits+1));
+            const promise = axios.post(`https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${id}/uncheck`, body, config);
+            promise.then(()=>setDonehabits(...doneHabits.filter(item => item !== id)));
         }           
         
     }
@@ -88,7 +91,7 @@ export default function Today(){
             <Header>
 
                 <p>TrackIt</p>
-                <Circle><img src={bob} alt="profile-pic" /></Circle>
+                <Circle><img src={user.image} alt="profile-pic" /></Circle>
                 
             </Header>
 
@@ -99,11 +102,14 @@ export default function Today(){
 
             {dailyHabit.map((habit) => (
 
-                <Routine>
+                <Routine key={habit.id}>
+
                     <p>{habit.name}</p>
                     <span>Sequência atual: {habit.currentSequence} dias</span>
                     <span>Seu recorde: {habit.highestSequence} dias</span>
-                    <CheckSquare onClick={() => payHabit(habit.id, habit.done)}></CheckSquare>  
+
+                    <CheckSquare color={doneHabits.includes(habit.id) === true ? "#8FC549" : "EBEBEB" } onClick={() => payHabit(habit.id, habit.done)}>
+                    </CheckSquare>  
                 </Routine>
 
             ))}
@@ -179,8 +185,7 @@ const Day = styled.div`
     p{
         color: #BABABA;
         font-size: 20px;
-        margin-bottom: 15px;
-       
+        margin-bottom: 15px;       
     }
 `;
 
@@ -198,7 +203,7 @@ const Title = styled.div`
 const CheckSquare = styled(CheckSquareFill)`
     height: 69px;
     width: 69px;
-    color: #ebebeb;
+    background: ${props => props.color};
     border-radius: 5px;
     border: none;
     position: absolute;
