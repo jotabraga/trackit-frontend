@@ -15,8 +15,7 @@ export default function Habits(){
     const [addBox, setAddbox] = useState("none");
     const week = [{letter:"D", id:0},{letter:"S", id:1},{letter:"T", id:2},{letter:"Q", id:3},{letter:"Q", id:4},{letter:"S", id:5},{letter:"S", id:6}];
     const [selected, setSelected] = useState([]);
-    const [habits, setHabits] = useState([]);
-    
+    const [habits, setHabits] = useState([]);    
 
     useEffect(() => {
         
@@ -54,12 +53,6 @@ export default function Habits(){
         promise.then((response) => setHabits([...habits, response.data ]));
     }
 
-    
-    console.log(habits);
-
-
-
-
     return(
 
         <>
@@ -95,8 +88,6 @@ export default function Habits(){
 
             <NoHabitsYet visibility={habits.length > 0 ? "none" : "flex"} >Você não tem nenhum hábito cadastrado ainda. Adicione um hábito para começar a trackear!</NoHabitsYet>
 
-            
-
             <Footer>
                 <p>Hábitos</p>
 
@@ -107,11 +98,8 @@ export default function Habits(){
                 <p>Histórico</p>
             </Footer>
 
-        </HabitsContent>
-
-            
+        </HabitsContent>            
         </>
-
     );
 }
 
@@ -192,16 +180,16 @@ const NoHabitsYet = styled.div`
     margin-top: 30px;
     color: #666666;
 `;
+
 const Weekdays = styled.ul`
     display: flex;
     justify-content: space-between;
     margin-top: 8px;
     margin-bottom: 30px;
     width: auto;
-    height: auto;
-
-    
+    height: auto;    
 `;
+
 const Footer = styled.div`
     position: fixed;
     background: #fff;
@@ -235,6 +223,7 @@ const Footer = styled.div`
         margin-bottom: 15px;
     }
 `;
+
 const NewHabitBox = styled.div`
     background: #fff;
     padding: 18px;
@@ -243,8 +232,6 @@ const NewHabitBox = styled.div`
     border-radius: 5px;
     margin-top: 30px;
     display: ${props => props.visibility};
-    
-
     input{
         width: 100%;
         height: 45px;
@@ -257,15 +244,12 @@ const NewHabitBox = styled.div`
     }
     input::placeholder{
         color: #DBDBDB;
-    }
-    
-   
+    }   
 `;
 
 const Choices = styled.div`
     display: flex;
     justify-content: flex-end;    
-
     button{
         border-radius: 5px;
         background: #52B6FF;
