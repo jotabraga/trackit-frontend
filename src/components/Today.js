@@ -112,7 +112,7 @@ export default function Today(){
                         transition: 'stroke-dashoffset 0.5s ease 0s',
                         pathColor: `#fff`,
                         textColor: '#FFFFFF',
-                        trailColor: "transparent",
+                        trailColor: "#bebebe",
                         backgroundColor: '#52B6FF',
                       })}/>
                 </BarContainer>
