@@ -35,7 +35,7 @@ export default function Rote(props){
 
             <Weekdays>
                 {week.map((day) => (
-                  <Day key={day.id} color={days.includes(day.id) === true ? "#CFCFCF" : "#FFF"}>
+                  <Day key={day.id} color={days.includes(day.id) === true ? "#52B6FF" : "#FFF"}>
                       {day.letter}
                   </Day>
                 ))} 
@@ -70,8 +70,9 @@ const Day = styled.li`
     border: 1px solid #d5d5d5;
     border-radius: 5px;
     display: flex;
+    flex-direction: column;
     justify-content: center;
-    align-itens: center;
+    text-align: center;
 `;
 const Routine = styled.div` 
     background: #fff;
@@ -79,7 +80,6 @@ const Routine = styled.div`
     width: auto;
     height: 91px;
     border-radius: 5px;
-    margin-bottom: 8px;
     margin-top:15px;
     position: relative;
     display: ${props => props.visibility};

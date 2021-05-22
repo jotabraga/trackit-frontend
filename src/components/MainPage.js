@@ -7,8 +7,6 @@ import { Link, useHistory } from "react-router-dom";
 import ReactLoading from 'react-loading';
 import UserContext from "./UserContext";
 
-
-
 export default function MainPage(){
 
     const {setUser} = useContext(UserContext);
@@ -42,7 +40,7 @@ export default function MainPage(){
         request.catch(e => {
             setDisabled(!disabled);
             setLoading("Cadastrar");
-            console.log(e)
+            alert("Dados incorretos, insira os dados corretos.");
         });
       }     
 
@@ -52,7 +50,6 @@ export default function MainPage(){
             <img src={logo} alt="logo"/>
 
             <form onSubmit={login}>
-
           
                 <input type="text" placeholder="email" disabled={disabled} value={email} onChange={(e) => setEmail(e.target.value)} />
 
@@ -133,11 +130,11 @@ const Login = styled.div`
             text-decoration: underline;
             text-align: center;
         }
+
         h1{
             line-height: 45px;
             color: #fff;
-        }
-        
+        }        
     }    
 `;
 

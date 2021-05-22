@@ -31,7 +31,6 @@ export default function MainPage(){
             password
         };
 
-
         const request = axios.post("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/sign-up", body);
 
         request.then((e) => history.push("/"));
@@ -39,7 +38,7 @@ export default function MainPage(){
         request.catch(e => {
             setDisabled(!disabled);
             setLoading("Cadastrar");
-            console.log(e)
+            alert("Dados incorretos, insira os dados corretos.");
         });
     }
 
@@ -62,12 +61,9 @@ export default function MainPage(){
 
             <Link to={"/"}> <p>Já tem uma conta? Faça login!</p> </Link>
 
-        </form>
-
-       
+        </form>       
 
     </Register>
-
     );
 }
 
@@ -113,7 +109,7 @@ const Register = styled.div`
             margin-bottom: 6px;
             border-radius: 5px;
             border: 1px #d4d4d4 solid;
-            color: #dbdbdb;
+            color: #000;
             padding-left: 11px;
             font-size: 20px;
         }

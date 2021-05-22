@@ -5,123 +5,117 @@ import { Link } from "react-router-dom";
 import {CheckSquareFill} from '@styled-icons/bootstrap'
 import "dayjs/locale/pt-br";
 import UserContext from "./UserContext";
-import { CircularProgressbar } from 'react-circular-progressbar';
-
+import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
+import ProgressContext from "./ProgressContext";
+import 'react-circular-progressbar/dist/styles.css';
 
 export default function Today(){
    
     const dayjs = require('dayjs');
     let now = dayjs().locale('pt-br');
     let today = now.format("dddd, DD/MM ");
-    console.log(today);
     const [dailyHabit, setDailyhabit] = useState([]);
-    const [doneHabits, setDonehabits] = useState([]);
-    const [percent, setPercent] = useState(0.0);
-
-
+    const [progressMessage, setProgressmessage] = useState("Nenhum hábito concluído ainda");
     const {user} = useContext(UserContext);
 
+
+    const {setProgress, progress} = useContext(ProgressContext);
+
     useEffect(() => {
+
+        const config = {
+            headers: 
+            {
+                Authorization: `Bearer ${user.token}`
+            }
+        }   
+        const promise = axios.get("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/today", config);
+        promise.then((answer) => setDailyhabit(answer.data));
+          
         
+    }, [user.token]); 
+
+
+    function changeHabit(habit){        
+
+        habit.done = !habit.done;
+        setDailyhabit([...dailyHabit]);
+
+        const body = "";   
         const config = {
             headers: 
             {
                 Authorization: `Bearer ${user.token}`
             }
         }
-        
-        const promise = axios.get("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/today", config);
-
-        promise.then((answer) => {
-
-            setDailyhabit(answer.data);
-            console.log(answer.data);
-            console.log(doneHabits);
-
-                                            
+        if(habit.done){
+            const promise = axios.post(`https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${habit.id}/check`, body, config);
+        promise.then(() => {
+            let percent = Math.round(((dailyHabit.filter(item => item.done === true).length)/dailyHabit.length)*100);
+            setProgress(percent);
+            setProgressmessage(`${percent}% dos hábitos concluídos`);        
         });
-    }, [user.token]); 
 
+        }else{
 
-    function payHabit(id, condition){
+            const promise = axios.post(`https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${habit.id}/uncheck`, body, config);
+        promise.then(() => {
+            let percent = Math.round(((dailyHabit.filter(item => item.done === true).length)/dailyHabit.length)*100);
+            setProgress(percent);
+            // eslint-disable-next-line no-lone-blocks
+            {percent === 0 ? setProgressmessage("Nenhum hábito concluído ainda") : setProgressmessage(`${percent}% dos hábitos concluídos`)}                       
+        });
 
-        if(condition === false) {
-
-            const body = "";            
-
-            const config = {
-                headers: 
-                {
-                    Authorization: `Bearer ${user.token}`
-                }
-            }
-            const promise = axios.post(`https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${id}/check`, body, config);
-            promise.then(()=> {
-                setDonehabits(...doneHabits, id);
-                setPercent((parseFloat(doneHabits.length/dailyHabit.length)).toFixed(1));
-                console.log(doneHabits);
-            });
-
-        }
-        if(condition === true){
-
-            const body = "";            
-
-            const config = {
-                headers: 
-                {
-                    Authorization: `Bearer ${user.token}`
-                }
-            }
-            const promise = axios.post(`https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${id}/uncheck`, body, config);
-            promise.then(()=>setDonehabits(...doneHabits.filter(item => item !== id)));
-        }           
-        
-    }
-
- 
-
-    
-
+        }                      
+    }      
+      
     return(
 
         <PageContent>
 
-
             <Header>
-
                 <p>TrackIt</p>
-                <Circle><img src={user.image} alt="profile-pic" /></Circle>
-                
+                <Circle><img src={user.image} alt="profile-pic" /></Circle>                
             </Header>
 
             <Day>
-                    <Title>{today}</Title>
-                    <p>Nenhum hábito concluído ainda</p>
+                <Title>{today}</Title>
+                <p>{progressMessage}</p>
             </Day>            
 
             {dailyHabit.map((habit) => (
 
                 <Routine key={habit.id}>
-
                     <p>{habit.name}</p>
-                    <span>Sequência atual: {habit.currentSequence} dias</span>
-                    <span>Seu recorde: {habit.highestSequence} dias</span>
-
-                    <CheckSquare color={doneHabits.includes(habit.id) === true ? "#8FC549" : "EBEBEB" } onClick={() => payHabit(habit.id, habit.done)}>
+                    <span>Sequência atual: {habit.currentSequence} dia(s)</span>
+                    <span>Seu recorde: {habit.highestSequence} dia(s)</span>
+                    <CheckSquare color={(habit.done === true) ? "#8FC549" : "#EBEBEB" } onClick={() => changeHabit(habit)}>
                     </CheckSquare>  
                 </Routine>
 
             ))}
             
             <Footer>
-
                 <Link to="/habitos"> 
                     <p>Hábitos</p>
                 </Link>
-
-                <button>Hoje</button>
-
+                <BarContainer>
+                    <CircularProgressbar 
+                    value={progress}
+                    text={"Hoje"}
+                    background
+                    backgroundPadding={6}
+                    styles={buildStyles({
+                        strokeLinecap: 'butt',
+                        textSize: '18px',
+                        pathTransitionDuration: 0.5,
+                        transition: 'stroke-dashoffset 0.5s ease 0s',
+                        pathColor: `#fff`,
+                        textColor: '#FFFFFF',
+                        trailColor: "transparent",
+                        backgroundColor: '#52B6FF',
+                      })}/>
+                </BarContainer>
                 <p>Histórico</p>
             </Footer>
 
@@ -203,7 +197,7 @@ const Title = styled.div`
 const CheckSquare = styled(CheckSquareFill)`
     height: 69px;
     width: 69px;
-    background: ${props => props.color};
+    color: ${props => props.color};
     border-radius: 5px;
     border: none;
     position: absolute;
@@ -254,17 +248,20 @@ const Footer = styled.div`
         line-height: 70px;            
     }
     button{
-        position: fixed;
-        left: calc(50vw - 45.5px);
-        bottom: 2px;
-        z-index: 2;
-        height: 91px;
-        width: 91px;
-        color: #fff;
-        background: #52B6FF;
-        border-radius: 50%;
-        font-size: 18px;
-        border: none;
-        margin-bottom: 15px;
+       
     }
+`;
+
+const BarContainer = styled.div`
+    position: fixed;
+    left: calc(50vw - 45.5px);
+    bottom: 2px; 
+    height: 91px;
+    width: 91px;
+    text-color: #fff;
+    background: #52B6FF;
+    border-radius: 50%;
+    font-size: 18px;
+    border: none;
+    margin-bottom: 15px;
 `;

@@ -8,19 +8,16 @@ export default function Weekday(props){
 
        if(selected.includes(id) === true){
            
-            setSelected([...selected.filter(day => day !== id)]);   
-             
+            setSelected([...selected.filter(day => day !== id)]);                
               
         }if(selected.includes(id) === false){
 
-            setSelected([...selected, id]);
-          
+            setSelected([...selected, id]);          
         }
     }
 
     return (
-
-        <Day color={selected.includes(id) === true ? "#CFCFCF" : "#FFF"} 
+        <Day color={selected.includes(id) === true ? "#52B6FF" : "#FFF"} 
         onClick={() => selectDay(id)}>
             {simbol}
         </Day>
@@ -37,6 +34,7 @@ const Day = styled.li`
     border: 1px solid #d5d5d5;
     border-radius: 5px;
     display: flex;
+    flex-direction: column;
     justify-content: center;
-    align-itens: center;
+    text-align: center;
 `;
