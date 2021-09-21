@@ -7,6 +7,7 @@ import "dayjs/locale/pt-br";
 import UserContext from "./UserContext";
 import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
 import ProgressContext from "./ProgressContext";
+import Header from "./Header";
 import 'react-circular-progressbar/dist/styles.css';
 
 export default function Today(){
@@ -74,8 +75,7 @@ export default function Today(){
         <PageContent>
 
             <Header>
-                <p>TrackIt</p>
-                <Circle><img src={user.image} alt="profile-pic" /></Circle>                
+              
             </Header>
 
             <Day>
@@ -132,41 +132,6 @@ const PageContent = styled.div`
     padding-right: 18px;
     background: #E5E5E5;
     flex-direction: column;
-`;
-
-const Header = styled.div`
-    position: fixed;
-    left: 0;
-    top: 0;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.10), 0 6px 20px 0 rgba(0, 0, 0, 0.09); 
-    width: 100vw;
-    height: 70px;
-    background: #126BA5;
-    padding-left: 18px;
-    padding-right: 18px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    font-family: 'Playball', cursive;
-    color: #fff;
-    p{
-        font-size: 39px;
-    }
-`;
-
-const Circle = styled.div`
-    background-color: #fff;
-    border-radius: 50%;
-    width: 51px;
-    height: 51px;
-    overflow: hidden;
-    position: relative;
-    
-    img{
-        position: absolute;
-        bottom: 0;
-        width: 100%;
-    }
 `;
 
 const Day = styled.div`
