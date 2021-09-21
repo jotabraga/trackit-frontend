@@ -22,7 +22,7 @@ export default function Habits(){
         const config = {
             headers: 
             {
-                Authorization: `Bearer ${user.token}`
+                Authorization: `Bearer ${user?.token}`
             }
         }
         
@@ -32,7 +32,7 @@ export default function Habits(){
             setHabits(answer.data);                                  
         });
 
-    }, [user.token]);   
+    }, [user?.token]);   
 
     
 
