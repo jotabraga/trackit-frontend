@@ -1,11 +1,11 @@
 import {BrowserRouter, Switch, Route} from "react-router-dom";
-import MainPage from "./components/MainPage";
-import Register from "./components/Register";
-import Habits from "./components/Habits";
-import Today from "./components/Today";
-import UserContext from "./components/UserContext";
+import MainPage from "./components/Sign-In/SignIn";
+import Register from "./components/Register/Register";
+import Habits from "./components/Habits/Habits";
+import Today from "./components/Today/Today";
+import UserContext from "./Contexts/UserContext";
 import { useState } from "react";
-import ProgressContext from "./components/ProgressContext";
+import ProgressContext from "./Contexts/ProgressContext";
 
 
 export default function App() {

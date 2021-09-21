@@ -4,10 +4,10 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 import {CheckSquareFill} from '@styled-icons/bootstrap'
 import "dayjs/locale/pt-br";
-import UserContext from "./UserContext";
+import UserContext from "../../Contexts/UserContext";
 import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
-import ProgressContext from "./ProgressContext";
-import Header from "./Header";
+import ProgressContext from "../../Contexts/ProgressContext";
+import Header from "../utils/Header";
 import 'react-circular-progressbar/dist/styles.css';
 
 export default function Today(){

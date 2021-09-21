@@ -5,7 +5,7 @@ import { useState } from "react";
 import axios from "axios";
 import { Link, useHistory } from "react-router-dom";
 import ReactLoading from 'react-loading';
-import UserContext from "./UserContext";
+import UserContext from "../../Contexts/UserContext";
 
 export default function MainPage(){
 
