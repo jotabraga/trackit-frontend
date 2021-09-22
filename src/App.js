@@ -3,13 +3,25 @@ import MainPage from "./components/Sign-In/SignIn";
 import Register from "./components/Register/Register";
 import Habits from "./components/Habits/Habits";
 import Today from "./components/Today/Today";
-import { useState } from "react";
-import { UserProvider } from "./Contexts/UserContext";
+import { useState, useContext } from "react";
+import UserContext, { UserProvider } from "./Contexts/UserContext";
 import ProgressContext from "./Contexts/ProgressContext";
+import ConditionalRoute from "./Conditional-route/ConditionalRoute";
 
 export default function App() {
-  const [user, setUser] = useState(null);
   const [progress, setProgress] = useState(null);
+
+  const { user } = useContext(UserContext);
+
+  function ensureAuthenticated() {  
+    return [
+      {
+        to: "/sign-in",
+        check: () => !!user.token,
+        message: "Por favor, faça login!",
+      },
+    ];
+  }
 
   return (
     <BrowserRouter>
@@ -22,12 +34,12 @@ export default function App() {
             <Route path="/cadastro" exact>
               <Register />
             </Route>
-            <Route path="/habitos" exact>
+            <ConditionalRoute check={ensureAuthenticated} path="/habitos" exact>
               <Habits />
-            </Route>
-            <Route path="/hoje" exact>
+            </ConditionalRoute>
+            <ConditionalRoute check={ensureAuthenticated} path="/hoje" exact>
               <Today />
-            </Route>
+            </ConditionalRoute>
           </ProgressContext.Provider>
         </UserProvider>
       </Switch>
