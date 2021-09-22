@@ -40,7 +40,7 @@ export default function MainPage(){
             const user = JSON.stringify(response.data);
             localStorage.setItem("user", user);
             setUser(JSON.parse(localStorage.getItem("user")));
-            history.push("/habitos");
+            history.push("/hoje");
         });
 
         request.catch(e => {
@@ -48,9 +48,7 @@ export default function MainPage(){
             setLoading(<h1>Entrar</h1>);
             alert("Dados incorretos, insira os dados corretos.");
         });
-      }     
-
-
+      }   
 
     return(
         <Login>

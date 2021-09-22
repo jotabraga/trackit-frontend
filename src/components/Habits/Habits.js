@@ -4,7 +4,7 @@ import axios from "axios";
 import { AddSquare } from "@styled-icons/fluentui-system-filled";
 import UserContext from "../../Contexts/UserContext";
 import Weekday from "./Weekday";
-import Rote from "./Rote";
+import DailyContent from "./DailyContent";
 import Header from "../Common-use/Header";
 import Footer from "../Common-use/Footer";
 
@@ -28,7 +28,7 @@ export default function Habits() {
     if (localStorage.getItem("user")) {
       setUser(JSON.parse(localStorage.getItem("user")));
     }
-  }, []);
+  }, [setUser]);
 
   useEffect(() => {
     const config = {
@@ -102,7 +102,7 @@ export default function Habits() {
         </NewHabitBox>
 
         {habits.map((habit) => (
-          <Rote
+          <DailyContent
             key={habit.id}
             days={habit.days}
             name={habit.name}

@@ -2,11 +2,10 @@ import { TrashFill } from "@styled-icons/bootstrap";
 import styled from "styled-components";
 import axios from "axios";
 
-export default function Rote(props) {
+export default function DailyContent(props) {
   const { week, days, name, id, token, habits, setHabits } = props;
 
   function excludeHabit(id) {
-    console.log(id);
 
     if (window.confirm("Deseja excluir o hábito?")) {
       const config = {
