@@ -5,6 +5,7 @@ import Habits from "./components/Habits/Habits";
 import Today from "./components/Today/Today";
 import UserContext from "./Contexts/UserContext";
 import { useState } from "react";
+import UserContext, { UserProvider } from "./Contexts/UserContext";
 import ProgressContext from "./Contexts/ProgressContext";
 
 export default function App() {
