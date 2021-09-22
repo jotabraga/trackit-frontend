@@ -3,9 +3,8 @@ import MainPage from "./components/Sign-In/SignIn";
 import Register from "./components/Register/Register";
 import Habits from "./components/Habits/Habits";
 import Today from "./components/Today/Today";
-import UserContext from "./Contexts/UserContext";
 import { useState } from "react";
-import UserContext, { UserProvider } from "./Contexts/UserContext";
+import { UserProvider } from "./Contexts/UserContext";
 import ProgressContext from "./Contexts/ProgressContext";
 
 export default function App() {
@@ -15,7 +14,7 @@ export default function App() {
   return (
     <BrowserRouter>
       <Switch>
-        <UserContext.Provider value={{ user, setUser }}>
+        <UserProvider>
           <ProgressContext.Provider value={{ progress, setProgress }}>
             <Route path="/" exact>
               <MainPage />
@@ -30,7 +29,7 @@ export default function App() {
               <Today />
             </Route>
           </ProgressContext.Provider>
-        </UserContext.Provider>
+        </UserProvider>
       </Switch>
     </BrowserRouter>
   );
