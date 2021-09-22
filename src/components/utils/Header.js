@@ -42,16 +42,16 @@ const StyledHeader = styled.header`
 `;
 
 const Circle = styled.div`
-    background-color: #fff;
-    border-radius: 50%;
-    width: 51px;
-    height: 51px;
-    overflow: hidden;
-    position: relative;
-    
-    img{
-        position: absolute;
-        bottom: 0;
-        width: 100%;
-    }
+  background-color: #fff;
+  border-radius: 50%;
+  width: 51px;
+  height: 51px;
+  overflow: hidden;
+  position: relative;
+
+  img {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+  }
 `;

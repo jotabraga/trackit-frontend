@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import React, { useContext } from 'react';
-import logo from "../images/logo.jpg";
-import { useState } from "react";
+import logo from "../../images/logo.jpg";
+import { useState, useEffect } from "react";
 import axios from "axios";
 import { Link, useHistory } from "react-router-dom";
 import ReactLoading from 'react-loading';
@@ -19,10 +19,8 @@ export default function MainPage(){
     let history = useHistory();
 
     function login(e) {
-
         e.preventDefault();
-
-        setDisabled(!disabled);
+        setDisabled(true);
         setLoading(<ReactLoading type={'bubbles'} color={'#fff'} height={'10%'} width={'20%'} />);
 
         const body = {
@@ -30,19 +28,28 @@ export default function MainPage(){
           password
         };
     
-        const request = axios.post("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/login", body);
+        const request = axios.post(`${process.env.REACT_APP_API_BASE_URL}/auth/login`, body);
 
         request.then((response) => {
-            setUser(response.data);
+            const user = JSON.stringify(response.data);
+            localStorage.setItem("user", user);
+            setUser(JSON.parse(localStorage.getItem("user")));
             history.push("/habitos");
         });
 
         request.catch(e => {
-            setDisabled(!disabled);
-            setLoading("Cadastrar");
+            setDisabled(false);
+            setLoading(<h1>Entrar</h1>);
             alert("Dados incorretos, insira os dados corretos.");
         });
       }     
+
+      useEffect(() => {
+        if (localStorage.getItem("user")) {
+          setUser(JSON.parse(localStorage.getItem("user")));
+          history.push("/hoje");
+        }
+      }, []);
 
     return(
         <Login>
