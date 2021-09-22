@@ -9,9 +9,9 @@ export default function Header() {
   return (
     <StyledHeader>
       <p>TrackIt</p>
-      <Circle>
+      <div className="circle">
         <img src={image} alt={name} />
-      </Circle>
+      </div>
     </StyledHeader>
   );
 }
@@ -39,19 +39,19 @@ const StyledHeader = styled.header`
     height: 51px;
     width: 51px;
   }
-`;
-
-const Circle = styled.div`
-  background-color: #fff;
-  border-radius: 50%;
-  width: 51px;
-  height: 51px;
-  overflow: hidden;
-  position: relative;
-
+  .circle {
+    background-color: #fff;
+    border-radius: 50%;
+    width: 51px;
+    height: 51px;
+    overflow: hidden;
+    position: relative;
+  }
   img {
     position: absolute;
     bottom: 0;
     width: 100%;
   }
 `;
+
+

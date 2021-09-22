@@ -30,7 +30,7 @@ export default function Today(){
                 Authorization: `Bearer ${user.token}`
             }
         }   
-        const promise = axios.get("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/today", config);
+        const promise = axios.get(`${process.env.REACT_APP_API_BASE_URL}/habits/today`, config);
         promise.then((answer) => setDailyhabit(answer.data));
           
         
@@ -50,7 +50,7 @@ export default function Today(){
             }
         }
         if(habit.done){
-            const promise = axios.post(`https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${habit.id}/check`, body, config);
+            const promise = axios.post(`${process.env.REACT_APP_API_BASE_URL}/habits/${habit.id}/check`, body, config);
         promise.then(() => {
             let percent = Math.round(((dailyHabit.filter(item => item.done === true).length)/dailyHabit.length)*100);
             setProgress(percent);
@@ -59,7 +59,7 @@ export default function Today(){
 
         }else{
 
-            const promise = axios.post(`https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${habit.id}/uncheck`, body, config);
+            const promise = axios.post(`${process.env.REACT_APP_API_BASE_URL}/habits/${habit.id}/uncheck`, body, config);
         promise.then(() => {
             let percent = Math.round(((dailyHabit.filter(item => item.done === true).length)/dailyHabit.length)*100);
             setProgress(percent);

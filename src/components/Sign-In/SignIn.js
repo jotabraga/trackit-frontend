@@ -9,14 +9,20 @@ import UserContext from "../../Contexts/UserContext";
 
 export default function MainPage(){
 
-    const {setUser} = useContext(UserContext);
-
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [disabled, setDisabled] = useState(false);
+    const { setUser } = useContext(UserContext);
     const [loading, setLoading] = useState(<h1>Entrar</h1>);
 
     let history = useHistory();
+
+    useEffect(() => {
+        if (localStorage.getItem("user")) {
+          setUser(JSON.parse(localStorage.getItem("user")));
+          history.push("/hoje");
+        }
+      }, [history, setUser]);
 
     function login(e) {
         e.preventDefault();
@@ -44,12 +50,7 @@ export default function MainPage(){
         });
       }     
 
-      useEffect(() => {
-        if (localStorage.getItem("user")) {
-          setUser(JSON.parse(localStorage.getItem("user")));
-          history.push("/hoje");
-        }
-      }, []);
+
 
     return(
         <Login>

@@ -15,7 +15,7 @@ export default function Rote(props) {
         },
       };
       const promise = axios.delete(
-        `https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${id}`,
+        `${process.env.REACT_APP_API_BASE_URL}/habits/${id}`,
         config
       );
 

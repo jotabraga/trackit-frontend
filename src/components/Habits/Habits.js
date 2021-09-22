@@ -9,7 +9,7 @@ import Rote from "../Rote";
 import { CircularProgressbar } from "react-circular-progressbar";
 
 export default function Habits() {
-  const { user } = useContext(UserContext);
+  const { user, setUser } = useContext(UserContext);
   const [habitName, setHabitname] = useState("");
   const [addBox, setAddbox] = useState("none");
   const week = [
@@ -25,14 +25,19 @@ export default function Habits() {
   const [habits, setHabits] = useState([]);
 
   useEffect(() => {
+    if (localStorage.getItem("user")) {
+      setUser(JSON.parse(localStorage.getItem("user")));
+    }
+  }, []);
+
+  useEffect(() => {
     const config = {
       headers: {
         Authorization: `Bearer ${user?.token}`,
       },
     };
 
-    const promise = axios.get(
-      "https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits",
+    const promise = axios.get(`${process.env.REACT_APP_API_BASE_URL}/habits`,
       config
     );
 
@@ -53,7 +58,7 @@ export default function Habits() {
       },
     };
     const promise = axios.post(
-      "https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits",
+      `${process.env.REACT_APP_API_BASE_URL}/habits`,
       body,
       config
     );
