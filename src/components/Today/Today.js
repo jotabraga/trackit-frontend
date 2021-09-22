@@ -16,9 +16,7 @@ export default function Today() {
   let now = dayjs().locale("pt-br");
   let today = now.format("dddd, DD/MM ");
   const [dailyHabit, setDailyhabit] = useState([]);
-  const [progressMessage, setProgressmessage] = useState(
-    "Nenhum hábito concluído ainda"
-  );
+  const [progressMessage, setProgressmessage] = useState("Nenhum hábito concluído ainda");
   const { user } = useContext(UserContext);
 
   const { setProgress } = useContext(ProgressContext);

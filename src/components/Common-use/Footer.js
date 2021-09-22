@@ -13,22 +13,24 @@ export default function Footer() {
         <p>Hábitos</p>
       </Link>
       <div className="BarContainer">
-        <CircularProgressbar
-          value={progress}
-          text={"Hoje"}
-          background
-          backgroundPadding={6}
-          styles={buildStyles({
-            strokeLinecap: "butt",
-            textSize: "18px",
-            pathTransitionDuration: 0.5,
-            transition: "stroke-dashoffset 0.5s ease 0s",
-            pathColor: `#fff`,
-            textColor: "#FFFFFF",
-            trailColor: "#bebebe",
-            backgroundColor: "#52B6FF",
-          })}
-        />
+        <Link to="/hoje">
+          <CircularProgressbar
+            value={progress}
+            text={"Hoje"}
+            background
+            backgroundPadding={6}
+            styles={buildStyles({
+              strokeLinecap: "butt",
+              textSize: "18px",
+              pathTransitionDuration: 0.5,
+              transition: "stroke-dashoffset 0.5s ease 0s",
+              pathColor: `#fff`,
+              textColor: "#FFFFFF",
+              trailColor: "#bebebe",
+              backgroundColor: "#52B6FF",
+            })}
+          />
+        </Link>
       </div>
       <p>Histórico</p>
     </StyledFooter>

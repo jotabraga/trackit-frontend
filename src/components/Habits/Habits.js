@@ -9,7 +9,7 @@ import Header from "../Common-use/Header";
 import Footer from "../Common-use/Footer";
 
 export default function Habits() {
-  const { user, setUser } = useContext(UserContext);
+  const { user } = useContext(UserContext);
   const [habitName, setHabitname] = useState("");
   const [addBox, setAddbox] = useState("none");
   const week = [
@@ -25,19 +25,16 @@ export default function Habits() {
   const [habits, setHabits] = useState([]);
 
   useEffect(() => {
-    if (localStorage.getItem("user")) {
-      setUser(JSON.parse(localStorage.getItem("user")));
-    }
-  }, [setUser]);
-
-  useEffect(() => {
     const config = {
       headers: {
         Authorization: `Bearer ${user?.token}`,
       },
     };
 
-    const promise = axios.get(`${process.env.REACT_APP_API_BASE_URL}/habits`, config);
+    const promise = axios.get(
+      `${process.env.REACT_APP_API_BASE_URL}/habits`,
+      config
+    );
 
     promise.then((answer) => {
       setHabits(answer.data);
@@ -66,7 +63,6 @@ export default function Habits() {
   return (
     <>
       <Header />
-
       <HabitsContent>
         <AddNewHabit>
           <Title>
@@ -74,7 +70,6 @@ export default function Habits() {
             <AddSquareBlue onClick={() => setAddbox("block")}></AddSquareBlue>
           </Title>
         </AddNewHabit>
-
         <NewHabitBox visibility={addBox}>
           <input
             type="text"
@@ -82,7 +77,6 @@ export default function Habits() {
             value={habitName}
             onChange={(e) => setHabitname(e.target.value)}
           />
-
           <Weekdays>
             {week.map((day) => (
               <Weekday
@@ -94,13 +88,11 @@ export default function Habits() {
               />
             ))}
           </Weekdays>
-
           <Choices>
             <p onClick={() => setAddbox("none")}>Cancelar</p>
             <button onClick={() => saveHabit()}>Salvar</button>
           </Choices>
         </NewHabitBox>
-
         {habits.map((habit) => (
           <DailyContent
             key={habit.id}
@@ -113,14 +105,11 @@ export default function Habits() {
             token={user.token}
           />
         ))}
-
         <NoHabitsYet visibility={habits.length > 0 ? "none" : "flex"}>
           Você não tem nenhum hábito cadastrado ainda. Adicione um hábito para
           começar a trackear!
         </NoHabitsYet>
         <Footer />
-
-
       </HabitsContent>
     </>
   );
