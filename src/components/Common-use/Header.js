@@ -8,7 +8,7 @@ export default function Header() {
 
   return (
     <StyledHeader>
-      <h1>MyTrack</h1>
+      <h1>TrackIt</h1>
       <img src={image} alt={name} />
     </StyledHeader>
   );

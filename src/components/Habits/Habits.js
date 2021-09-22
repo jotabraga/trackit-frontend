@@ -1,12 +1,12 @@
 import styled from "styled-components";
 import { React, useContext, useState, useEffect } from "react";
 import axios from "axios";
-import { Link } from "react-router-dom";
 import { AddSquare } from "@styled-icons/fluentui-system-filled";
 import UserContext from "../../Contexts/UserContext";
-import Weekday from "../Weekday";
-import Rote from "../Rote";
-import { CircularProgressbar } from "react-circular-progressbar";
+import Weekday from "./Weekday";
+import Rote from "./Rote";
+import Header from "../Common-use/Header";
+import Footer from "../Common-use/Footer";
 
 export default function Habits() {
   const { user, setUser } = useContext(UserContext);
@@ -37,9 +37,7 @@ export default function Habits() {
       },
     };
 
-    const promise = axios.get(`${process.env.REACT_APP_API_BASE_URL}/habits`,
-      config
-    );
+    const promise = axios.get(`${process.env.REACT_APP_API_BASE_URL}/habits`, config);
 
     promise.then((answer) => {
       setHabits(answer.data);
@@ -67,12 +65,7 @@ export default function Habits() {
 
   return (
     <>
-      <Header>
-        <p>TrackIt</p>
-        <Circle>
-          <img src={user.image} alt="profile-pic" />
-        </Circle>
-      </Header>
+      <Header />
 
       <HabitsContent>
         <AddNewHabit>
@@ -125,55 +118,13 @@ export default function Habits() {
           Você não tem nenhum hábito cadastrado ainda. Adicione um hábito para
           começar a trackear!
         </NoHabitsYet>
+        <Footer />
 
-        <Footer>
-          <p>Hábitos</p>
 
-          <Link to="/hoje">
-            <button>Hoje</button>
-          </Link>
-
-          <p>Histórico</p>
-        </Footer>
       </HabitsContent>
     </>
   );
 }
-
-const Header = styled.div`
-  position: fixed;
-  left: 0;
-  top: 0;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1), 0 6px 20px 0 rgba(0, 0, 0, 0.09);
-  width: 100vw;
-  height: 70px;
-  background: #126ba5;
-  padding-left: 18px;
-  padding-right: 18px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  font-family: "Playball", cursive;
-  color: #fff;
-  p {
-    font-size: 39px;
-  }
-`;
-
-const Circle = styled.div`
-  background-color: #fff;
-  border-radius: 50%;
-  width: 51px;
-  height: 51px;
-  overflow: hidden;
-  position: relative;
-
-  img {
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-  }
-`;
 
 const HabitsContent = styled.div`
   width: 100vw;
@@ -225,40 +176,6 @@ const Weekdays = styled.ul`
   margin-bottom: 30px;
   width: auto;
   height: auto;
-`;
-
-const Footer = styled.div`
-  position: fixed;
-  background: #fff;
-  display: flex;
-  justify-content: space-between;
-  left: 0;
-  bottom: 0;
-  height: 70px;
-  width: 100vw;
-  padding-left: 30px;
-  padding-right: 30px;
-  align-text: center;
-
-  p {
-    font-size: 18px;
-    color: #52b6ff;
-    line-height: 70px;
-  }
-  button {
-    position: fixed;
-    left: calc(50vw - 45.5px);
-    bottom: 2px;
-    z-index: 2;
-    height: 91px;
-    width: 91px;
-    color: #fff;
-    background: #52b6ff;
-    border-radius: 50%;
-    font-size: 18px;
-    border: none;
-    margin-bottom: 15px;
-  }
 `;
 
 const NewHabitBox = styled.div`
