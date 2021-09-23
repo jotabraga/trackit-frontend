@@ -36,22 +36,23 @@ export default function Historic() {
     <>
       <Header />
       <Title>Histórico</Title>
-      <StyledCalendar
-        onChange={setDate}
-        value={date}
-        locale="pt-br"
-        calendarType="US"
-        onClickDay={(value, event) => {
-          clickWeekday(days, value, setSelected, dayHabits);
-        }}
-        tileClassName={({ date, view }) => highlightedDay(days, date, historic)}
-      />
-      <CalendarClick
-        state={selected}
-        setstate={setSelected}
-        dayHabits={dayHabits}
-      />
-      <Div />
+      <CalendarContainer>
+        <StyledCalendar
+            onChange={setDate}
+            value={date}
+            locale="pt-br"
+            calendarType="US"
+            onClickDay={(value) => {
+            clickWeekday(days, value, setSelected, dayHabits);
+            }}
+            tileClassName={({ date }) => highlightedDay(days, date, historic)}
+        />
+        <CalendarClick
+            selected={selected}
+            setSelected={setSelected}
+            dayHabits={dayHabits}
+        />
+      </CalendarContainer>
       <Footer />
     </>
   );
@@ -59,8 +60,8 @@ export default function Historic() {
     if (days.find((x) => x === dayjs(value).format("DD/MM/YYYY"))) {
       setState(true);
       let chosen = [];
-      chosen = items.find(
-        (item, i) => item.day === dayjs(value).format("DD/MM/YYYY")
+      chosen = historic.find(
+        (item) => item.day === dayjs(value).format("DD/MM/YYYY")
       );
       let habitChosen = [];
 
@@ -100,17 +101,14 @@ const StyledCalendar = styled(Calendar)`
     border-radius: 10px;
     border: 0px;
     margin: auto;
-    margin-top: 15px;
     width: 90%;
 
   .false {
     background-color: #ea5766;
-    border-radius: 50%;
   }
 
   .true {
     background-color: #8cc654;
-    border-radius: 50%;
   }
 
   .today {
@@ -119,6 +117,11 @@ const StyledCalendar = styled(Calendar)`
   }
 `;
 
-const Div = styled.div`
-  height: 110px;
+const CalendarContainer = styled.div`
+  height: calc(100vh - 140px);
+  margin-top: 15px;
+  display: flex;
+  justify-content: center;
 `;
+
+

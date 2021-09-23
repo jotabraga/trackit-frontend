@@ -1,9 +1,9 @@
 import styled from "styled-components";
 import HabitsCheck from "./HabitsCheck";
 
-export default function CalendarClick({ state, setstate, dayHabits }) {
+export default function CalendarClick({ selected, setSelected, dayHabits }) {
   return (
-    <DayClick state={state}>
+    <DayClick selected={selected}>
       <div>
         <h2>Hábitos</h2>
         {dayHabits?.length === 0
@@ -11,7 +11,7 @@ export default function CalendarClick({ state, setstate, dayHabits }) {
           : dayHabits?.map((n) => (
               <HabitsCheck habitName={n.name} done={n.done} />
             ))}
-        <Close onClick={() => setstate(!state)}>Fechar</Close>
+        <Close onClick={() => setSelected(!selected)}>Fechar</Close>
       </div>
     </DayClick>
   );
