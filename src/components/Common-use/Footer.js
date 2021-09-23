@@ -32,7 +32,9 @@ export default function Footer() {
           />
         </Link>
       </div>
-      <p>Histórico</p>
+      <Link to="/historico">
+        <p>Histórico</p>
+      </Link>
     </StyledFooter>
   );
 }

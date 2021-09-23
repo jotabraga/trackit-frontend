@@ -42,7 +42,7 @@ export default function Historic() {
         locale="pt-br"
         calendarType="US"
         onClickDay={(value, event) => {
-          clickWeekday(days, value, setSelected, historic);
+          clickWeekday(days, value, setSelected, dayHabits);
         }}
         tileClassName={({ date, view }) => highlightedDay(days, date, historic)}
       />

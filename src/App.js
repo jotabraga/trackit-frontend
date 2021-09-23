@@ -28,7 +28,7 @@ export default function App() {
             <ConditionalRoute check={ensureAuthenticated} path="/hoje" exact>
               <Today />
             </ConditionalRoute>
-            <ConditionalRoute check={ensureAuthenticated} path="/hoje" exact>
+            <ConditionalRoute check={ensureAuthenticated} path="/historico" exact>
               <Historic />
             </ConditionalRoute>
           </ProgressProvider>
