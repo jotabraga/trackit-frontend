@@ -16,11 +16,8 @@ export default function Today() {
   let now = dayjs().locale("pt-br");
   let today = now.format("dddd, DD/MM ");
   const [dailyHabit, setDailyhabit] = useState([]);
-  const [progressMessage, setProgressmessage] = useState(
-    "Nenhum hábito concluído ainda"
-  );
   const { user } = useContext(UserContext);
-  const { setProgress } = useContext(ProgressContext);
+  const { progress, setProgress } = useContext(ProgressContext);
 
   useEffect(() => {
     const config = {
@@ -35,7 +32,7 @@ export default function Today() {
     promise.then((answer) => setDailyhabit(answer.data));
   }, [user.token]);
 
-  function changeHabit(habit) {
+  function updateHabit(habit) {
     habit.done = !habit.done;
     setDailyhabit([...dailyHabit]);
 
@@ -46,41 +43,43 @@ export default function Today() {
       },
     };
     if (habit.done) {
-      const promise = axios.post(
-        `${process.env.REACT_APP_API_BASE_URL}/habits/${habit.id}/check`,
-        body,
-        config
-      );
-      promise.then(() => {
-        let percent = Math.round(
-          (dailyHabit.filter((item) => item.done === true).length /
-            dailyHabit.length) *
-            100
-        );
-        setProgress(percent);
-        setProgressmessage(`${percent}% dos hábitos concluídos`);
-      });
+      checkHabit(habit, body, config);
     } else {
-      const promise = axios.post(
-        `${process.env.REACT_APP_API_BASE_URL}/habits/${habit.id}/uncheck`,
-        body,
-        config
-      );
-      promise.then(() => {
-        let percent = Math.round(
-          (dailyHabit.filter((item) => item.done === true).length /
-            dailyHabit.length) *
-            100
-        );
-        setProgress(percent);
-        // eslint-disable-next-line no-lone-blocks
-        {
-          percent === 0
-            ? setProgressmessage("Nenhum hábito concluído ainda")
-            : setProgressmessage(`${percent}% dos hábitos concluídos`);
-        }
-      });
+      uncheckHabit(habit, body, config);
     }
+  }
+
+  function checkHabit(habit, body, config){
+    const promise = axios.post(
+      `${process.env.REACT_APP_API_BASE_URL}/habits/${habit.id}/check`,
+      body,
+      config
+    );
+    promise.then(() => {
+      let percent = Math.round(
+        (dailyHabit.filter((item) => item.done === true).length /
+          dailyHabit.length) *
+          100
+      );
+      setProgress(percent);
+    });
+  }
+
+  function uncheckHabit(habit, body, config){
+    const promise = axios.post(
+      `${process.env.REACT_APP_API_BASE_URL}/habits/${habit.id}/uncheck`,
+      body,
+      config
+    );
+    promise.then(() => {
+      let percent = Math.round(
+        (dailyHabit.filter((item) => item.done === true).length /
+          dailyHabit.length) *
+          100
+      );
+      setProgress(percent);
+      // eslint-disable-next-line no-lone-blocks
+    });
   }
 
   return (
@@ -89,7 +88,7 @@ export default function Today() {
       <PageContent> 
         <Day>
           <Title>{today}</Title>
-          <p>{progressMessage}</p>
+          <p>{ progress === 0 ? "Nenhum hábito concluído ainda" : `${progress}% dos hábitos concluídos` }</p>
         </Day>
         {dailyHabit.map((habit) => (
           <Routine key={habit.id}>
@@ -98,7 +97,7 @@ export default function Today() {
             <span>Seu recorde: {habit.highestSequence} dia(s)</span>
             <CheckSquare
               color={habit.done === true ? "#8FC549" : "#EBEBEB"}
-              onClick={() => changeHabit(habit)}
+              onClick={() => updateHabit(habit)}
             ></CheckSquare>
           </Routine>
         ))}
