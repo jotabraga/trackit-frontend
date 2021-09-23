@@ -5,7 +5,7 @@ export default function CalendarClick({ state, setstate, information }) {
   return (
     <DayClick state={state}>
       <div>
-        <h2>Hábitos do dia {information[0]}</h2>
+        <h2>Hábitos</h2>
         {information.length === 0
           ? ""
           : information[1].map((n, i) => (

@@ -8,13 +8,16 @@ import UserContext from "../../Contexts/UserContext";
 import dayjs from "dayjs";
 import axios from "axios";
 import Title from "../Common-use/Title";
+import CalendarClick from "./CalendarClick";
 
 export default function Historic() {
   const { user } = useContext(UserContext);
   const [historic, setHistoric] = useState([]);
   const days = historic.map((d) => d.day);
+  const today = dayjs().format("DD/MM/YYYY");
   const [date, setDate] = useState(new Date());
   const [selected, setSelected] = useState(false);
+  const [dayHabits, setDayhabits] = useState([]);
 
   useEffect(() => {
     const config = { headers: { Authorization: `Bearer ${user.token}` } };
@@ -27,7 +30,7 @@ export default function Historic() {
       setHistoric(answer.data);
     });
     request.catch(() => alert("Erro de servidor, tente novamente"));
-  }, []);
+  }, [user.token]);
 
   return (
     <>
@@ -44,9 +47,9 @@ export default function Historic() {
         tileClassName={({ date, view }) => highlightedDay(days, date, historic)}
       />
       <CalendarClick
-        state={state}
-        setstate={setstate}
-        information={information}
+        state={selected}
+        setstate={setSelected}
+        dayHabits={dayHabits}
       />
       <Div />
       <Footer />
@@ -68,7 +71,7 @@ export default function Historic() {
         });
       }
 
-      setInfomation([dayjs(value).format("DD/MM/YYYY"), habitChosen]);
+      setDayhabits(habitChosen);
     }
   }
 
@@ -77,7 +80,7 @@ export default function Historic() {
     let doneHabit = [];
 
     if (days.find((x) => x === dayjs(date).format("DD/MM/YYYY"))) {
-      if (dayjs(date).format("DD/MM/YYYY") === now) {
+      if (dayjs(date).format("DD/MM/YYYY") === today) {
         return "today";
       } else {
         for (let i = 0; i < items.length; i++) {
@@ -114,4 +117,8 @@ const StyledCalendar = styled(Calendar)`
     background-color: #fcee81;
     color: black;
   }
+`;
+
+const Div = styled.div`
+  height: 110px;
 `;
