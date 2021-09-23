@@ -7,6 +7,8 @@ import Weekday from "./Weekday";
 import DailyContent from "./DailyContent";
 import Header from "../Common-use/Header";
 import Footer from "../Common-use/Footer";
+import PageContent from "../Common-use/PageContent";
+import Title from "../Common-use/Title";
 
 export default function Habits() {
   const { user } = useContext(UserContext);
@@ -63,7 +65,7 @@ export default function Habits() {
   return (
     <>
       <Header />
-      <HabitsContent>
+      <PageContent>
         <AddNewHabit>
           <Title>
             Meus hábitos
@@ -109,39 +111,18 @@ export default function Habits() {
           Você não tem nenhum hábito cadastrado ainda. Adicione um hábito para
           começar a trackear!
         </NoHabitsYet>
-        <Footer />
-      </HabitsContent>
+   
+      </PageContent>
+      <Footer />
     </>
   );
 }
-
-const HabitsContent = styled.div`
-  width: 100vw;
-  display: flex;
-  height: 100vh;
-  justify-content: first baseline;
-  padding-left: 18px;
-  padding-right: 18px;
-  background: #e5e5e5;
-  flex-direction: column;
-`;
 
 const AddNewHabit = styled.div`
   display: flex;
   justify-content: space-between;
   align-itens: center;
   display: ${(props) => props.visibility};
-`;
-
-const Title = styled.div`
-  width: 100vw;
-  display: flex;
-  justify-content: space-between;
-  background: #e5e5e5;
-  margin-top: 92px;
-  color: #126ba5;
-  font-size: 23px;
-  line-height: 35px;
 `;
 
 const AddSquareBlue = styled(AddSquare)`
