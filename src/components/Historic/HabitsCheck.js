@@ -8,7 +8,7 @@ export default function HabitsCheck({ habitName, done }) {
       <AllHabits>
         <Done state={done}>
           <h3>- {habitName}</h3>
-          <p>{done ? "Hábito concluído!" : "Hábito não concluído :("}</p>
+          <p>{done ? "Hábito concluído!" : "Hábito não concluído"}</p>
         </Done>
         <Check state={done}>
           {done ? (

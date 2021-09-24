@@ -6,12 +6,12 @@ export default function CalendarClick({ selected, setSelected, dayHabits }) {
     <DayClick selected={selected}>
       <div>
         <h2>Hábitos</h2>
-        {dayHabits?.length === 0
+        {dayHabits.length === 0
           ? ""
           : dayHabits?.map((n) => (
-              <HabitsCheck habitName={n.name} done={n.done} />
+              <HabitsCheck key={n.name} habitName={n.name} done={n.done} />
             ))}
-        <Close onClick={() => setSelected(!selected)}>Fechar</Close>
+        <Close onClick={() => setSelected(false)}>Fechar</Close>
       </div>
     </DayClick>
   );
@@ -24,7 +24,7 @@ const DayClick = styled.div`
   width: 100%;
   height: 100%;
   background-color: red;
-  display: ${(props) => (props.state ? "blocked" : "none")};
+  display: ${(props) => (props.selected ? "blocked" : "none")};
   background-color: rgba(255, 255, 255, 0.7);
   z-index: 0;
   div {

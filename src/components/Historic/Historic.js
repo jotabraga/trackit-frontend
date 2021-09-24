@@ -13,7 +13,7 @@ import CalendarClick from "./CalendarClick";
 export default function Historic() {
   const { user } = useContext(UserContext);
   const [historic, setHistoric] = useState([]);
-  const days = historic.map((d) => d.day);
+  const registeredDays = historic.map((d) => d.day);
   const today = dayjs().format("DD/MM/YYYY");
   const [date, setDate] = useState(new Date());
   const [selected, setSelected] = useState(false);
@@ -25,7 +25,6 @@ export default function Historic() {
       `${process.env.REACT_APP_API_BASE_URL}/habits/history/daily`,
       config
     );
-
     request.then((answer) => {
       setHistoric(answer.data);
     });
@@ -38,27 +37,29 @@ export default function Historic() {
       <Title>Histórico</Title>
       <CalendarContainer>
         <StyledCalendar
-            onChange={setDate}
-            value={date}
-            locale="pt-br"
-            calendarType="US"
-            onClickDay={(value) => {
-            clickWeekday(days, value, setSelected, dayHabits);
-            }}
-            tileClassName={({ date }) => highlightedDay(days, date, historic)}
+          onChange={setDate}
+          value={date}
+          locale="pt-br"
+          calendarType="US"
+          onClickDay={(value) => {
+            seeHabitsDay(registeredDays, value, setSelected, setDayhabits);
+          }}
+          tileClassName={({ date }) =>
+            highlightedDay(registeredDays, date, historic)
+          }
         />
         <CalendarClick
-            selected={selected}
-            setSelected={setSelected}
-            dayHabits={dayHabits}
+          selected={selected}
+          setSelected={setSelected}
+          dayHabits={dayHabits}
         />
       </CalendarContainer>
       <Footer />
     </>
   );
-  function clickWeekday(days, value, setState, items, setInfomation) {
-    if (days.find((x) => x === dayjs(value).format("DD/MM/YYYY"))) {
-      setState(true);
+  function seeHabitsDay(registeredDays, value, setSelected, setDayhabits) {
+    if (registeredDays.find((x) => x === dayjs(value).format("DD/MM/YYYY"))) {
+      setSelected(true);
       let chosen = [];
       chosen = historic.find(
         (item) => item.day === dayjs(value).format("DD/MM/YYYY")
@@ -76,11 +77,11 @@ export default function Historic() {
     }
   }
 
-  function highlightedDay(days, date, items) {
+  function highlightedDay(registeredDays, date, items) {
     let habit = [];
     let doneHabit = [];
 
-    if (days.find((x) => x === dayjs(date).format("DD/MM/YYYY"))) {
+    if (registeredDays.find((x) => x === dayjs(date).format("DD/MM/YYYY"))) {
       if (dayjs(date).format("DD/MM/YYYY") === today) {
         return "today";
       } else {
@@ -94,23 +95,20 @@ export default function Historic() {
         return `${doneHabit.reduce((acc, item) => acc && item, true)}`;
       }
     }
-    }
+  }
 }
 
 const StyledCalendar = styled(Calendar)`
-    border-radius: 10px;
-    border: 0px;
-    margin: auto;
-    width: 90%;
-
+  border-radius: 10px;
+  border: 0px;
+  margin: auto;
+  width: 90%;
   .false {
     background-color: #ea5766;
   }
-
   .true {
     background-color: #8cc654;
   }
-
   .today {
     background-color: #fcee81;
     color: black;
@@ -123,5 +121,3 @@ const CalendarContainer = styled.div`
   display: flex;
   justify-content: center;
 `;
-
-
