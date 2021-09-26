@@ -1,6 +1,5 @@
 import styled from "styled-components";
-import React, { useContext } from "react";
-import logo from "../../images/logo.jpg";
+import React, { useContext } from "react";  
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { Link, useHistory } from "react-router-dom";
@@ -61,7 +60,7 @@ export default function MainPage() {
 
   return (
     <Login>
-      <img src={logo} alt="logo" />
+      <span>TrackIt</span>
       <form onSubmit={login}>
         <input
           type="text"
@@ -89,7 +88,7 @@ export default function MainPage() {
 const Login = styled.div`
   width: 100vw;
   heigh: 100vh;
-  background: #fff;
+  background: #080808;
   padding-top: 68px;
   display: flex;
   flex-direction: column;
@@ -102,10 +101,18 @@ const Login = styled.div`
     height: 180px;
     margin-bottom: 32px;
   }
+  span {
+    font-family: "Playball", cursive;
+    font-size: 55px;
+    margin-bottom: 15px;
+    background: -webkit-linear-gradient(#5f9700, #a0e025);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
   input {
-    width: 303px;
+    width: 303px;    
     height: 45px;
-    margin-bottom: 6px;
+    margin-bottom: 8px;
     border-radius: 5px;
     border: 1px #d4d4d4 solid;
     color: #dbdbdb;
@@ -113,10 +120,10 @@ const Login = styled.div`
     font-size: 20px;
   }
   button {
-    background: #52b6ff;
+    background: #734ea0;
     color: #fff;
     border-radius: 5px;
-    border: 1px #d4d4d4 solid;
+    border: 0.5px #000 solid;
     display: flex;
     justify-content: center;
     align-itens: center;
@@ -144,7 +151,7 @@ const Login = styled.div`
     }
     p {
       font-size: 14px;
-      color: #52b6ff;
+      color: #2300d1;
       text-decoration: underline;
       text-align: center;
     }

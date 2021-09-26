@@ -5,6 +5,7 @@ const PageContent = styled.div`
   display: flex;
   height: calc(100vh - 140px);
   margin-top: 70px;
+  margin-bottom: 75px;
   justify-content: first baseline;
   padding-left: 18px;
   padding-right: 18px;

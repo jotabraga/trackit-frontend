@@ -51,7 +51,7 @@ export default function MainPage() {
 
   return (
     <Register>
-      <img src={logo} alt="logo" />
+      <span>TrackIt</span>
 
       <form onSubmit={register}>
         <input
@@ -102,7 +102,7 @@ export default function MainPage() {
 
 const Register = styled.div`
   width: 100vw;
-  background: #fff;
+  background: #080808;
   padding-top: 68px;
   display: flex;
   flex-direction: column;
@@ -115,11 +115,19 @@ const Register = styled.div`
     height: 180px;
     margin-bottom: 32px;
   }
+  span {
+    font-family: "Playball", cursive;
+    font-size: 55px;
+    margin-bottom: 15px;
+    background: -webkit-linear-gradient(#5f9700, #a0e025);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
   button {
-    background: #52b6ff;
+    background: #734ea0;
     color: #fff;
     border-radius: 5px;
-    border: 1px #d4d4d4 solid;
+    border: 0.5px #000 solid;
     text-align: center;
     display: flex;
     justify-content: center;
@@ -144,7 +152,7 @@ const Register = styled.div`
     }
     p {
       font-size: 14px;
-      color: #52b6ff;
+      color: #2300d1;
       text-decoration: underline;
       text-align: center;
     }

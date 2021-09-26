@@ -8,7 +8,6 @@ export default function EnsureAuthenticated() {
     {
       to: "/",
       check: () => !!user?.token,
-      message: "Por favor, faça login!",
     },
   ];
 }
