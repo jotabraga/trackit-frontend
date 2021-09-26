@@ -23,19 +23,24 @@ const StyledHeader = styled.header`
   justify-content: space-between;
   align-items: center;
   padding: 18px;
-  background-color: #126ba5;
+  background-color: #000;
+  border-bottom: 2px solid transparent;
+  border-image: linear-gradient(to right, #734ea0 0%, #2300d1 100%);
+  border-image-slice: 1;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.15);
   z-index: 2;
   h1 {
     font-family: "Playball", cursive;
     font-size: 40px;
-    color: #fff;
+    background: -webkit-linear-gradient(#5f9700, #a0e025);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
   }
   img {
     border-radius: 50%50%;
     height: 51px;
     width: 51px;
     margin-right: 20px;
-    border: 0.5px solid #120A8F;
+    border: 2px solid #2300d1;
   }
 `;

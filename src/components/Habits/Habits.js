@@ -69,7 +69,7 @@ export default function Habits() {
         <AddNewHabit>
           <Title>
             Meus hábitos
-            <AddSquareBlue onClick={() => setAddbox("block")}></AddSquareBlue>
+            <AddIcon onClick={() => setAddbox("block")}></AddIcon>
           </Title>
         </AddNewHabit>
         <NewHabitBox visibility={addBox}>
@@ -125,10 +125,11 @@ const AddNewHabit = styled.div`
   display: ${(props) => props.visibility};
 `;
 
-const AddSquareBlue = styled(AddSquare)`
+const AddIcon = styled(AddSquare)`
   height: 35px;
   width: 35px;
-  color: #52b6ff;
+  color: #734ea0;
+  margin-left: 10px;
 `;
 
 const NoHabitsYet = styled.div`

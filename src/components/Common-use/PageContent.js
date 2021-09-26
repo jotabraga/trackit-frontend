@@ -8,7 +8,7 @@ const PageContent = styled.div`
   justify-content: first baseline;
   padding-left: 18px;
   padding-right: 18px;
-  background: #e5e5e5;
+  background: #080808;
   flex-direction: column;
 `;
 

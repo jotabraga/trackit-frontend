@@ -117,6 +117,7 @@ const StyledCalendar = styled(Calendar)`
 
 const CalendarContainer = styled.div`
   height: calc(100vh - 140px);
+  background: #080808;
   margin-top: 15px;
   display: flex;
   justify-content: center;

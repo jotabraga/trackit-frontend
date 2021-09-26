@@ -24,10 +24,10 @@ export default function Footer() {
               textSize: "18px",
               pathTransitionDuration: 0.5,
               transition: "stroke-dashoffset 0.5s ease 0s",
-              pathColor: `#fff`,
+              pathColor: `#81b71a`,
               textColor: "#FFFFFF",
-              trailColor: "#bebebe",
-              backgroundColor: "#52B6FF",
+              trailColor: "#a0e025",
+              backgroundColor: "#111111",
             })}
           />
         </Link>
@@ -46,13 +46,13 @@ const StyledFooter = styled.div`
   width: 100%;
   height: 70px;
   padding: 0 36px;
-  background-color: #fff;
+  background-color: #000;
   display: flex;
   justify-content: space-between;
   align-items: center;
   p {
     font-family: "Lexend Deca", sans-serif;
-    color: #52b6ff;
+    color: #81b71a;
     font-size: 18px;
   }
   .BarContainer {
@@ -60,9 +60,9 @@ const StyledFooter = styled.div`
     height: 91px;
     margin-bottom: 50px;
     border-radius: 50%;
-    background-color: #52b6ff;
+    background-color: #696969;
     font-family: "Lexend Deca", sans-serif;
-    color: #fff;
+    color: #81b71a;
     font-size: 18px;
     display: flex;
     align-items: center;

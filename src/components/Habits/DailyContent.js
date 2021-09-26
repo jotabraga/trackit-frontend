@@ -26,14 +26,15 @@ export default function DailyContent(props) {
 
   return (
     <Routine visibility={habits.length > 0 ? "block" : "none"}>
-      <p>{name}</p>
-      <TrashCan onClick={() => excludeHabit(id)}></TrashCan>
-
+      <NameContainer>
+        <p>{name}</p>
+        <TrashCan onClick={() => excludeHabit(id)}></TrashCan>
+      </NameContainer>
       <Weekdays>
         {week.map((day) => (
           <Day
             key={day.id}
-            color={days.includes(day.id) === true ? "#52B6FF" : "#FFF"}
+            color={days.includes(day.id) === true ? "#6ba100" : "#000"}
           >
             {day.letter}
           </Day>
@@ -51,20 +52,29 @@ const Weekdays = styled.ul`
   width: auto;
   height: auto;
 `;
-
 const TrashCan = styled(TrashFill)`
   height: 18px;
   width: 16px;
-  color: #666666;
+  color: #fff;
   position: absolute;
   top: 11px;
   left: 83vw;
+`;
+const NameContainer = styled.div`
+  height: 20px;
+  display: flex;
+  height: 20px;
+  align-items: center;
+  p {
+    color: #666666;
+    font-size: 20px;
+  }
 `;
 const Day = styled.li`
   width: 30px;
   height: 30px;
   background: ${(props) => props.color};
-  color: #dbdbdb;
+  color: #FFF;
   font-size: 20px;
   border: 1px solid #d5d5d5;
   border-radius: 5px;
@@ -74,16 +84,12 @@ const Day = styled.li`
   text-align: center;
 `;
 const Routine = styled.div`
-  background: #fff;
-  padding: 18px;
+  background: #1b200e;
+  padding: 15px;
   width: auto;
   height: 91px;
   border-radius: 5px;
   margin-top: 15px;
   position: relative;
   display: ${(props) => props.visibility};
-  p {
-    color: #666666;
-    font-size: 20px;
-  }
 `;
