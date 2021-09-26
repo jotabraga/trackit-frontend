@@ -72,7 +72,6 @@ export default function Historic() {
           done: chosen.habits[i].done,
         });
       }
-
       setDayhabits(habitChosen);
     }
   }

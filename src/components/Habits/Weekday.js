@@ -17,7 +17,7 @@ export default function Weekday(props){
     }
 
     return (
-        <Day color={selected.includes(id) === true ? "#52B6FF" : "#FFF"} 
+        <Day color={selected.includes(id) === true ? "#6ba100" : "#000"} 
         onClick={() => selectDay(id)}>
             {simbol}
         </Day>
@@ -29,7 +29,7 @@ const Day = styled.li`
     width: 30px;
     height: 30px;
     background: ${props => props.color};
-    color: #dbdbdb;
+    color: #fff;
     font-size: 20px;
     border: 1px solid #d5d5d5;
     border-radius: 5px;

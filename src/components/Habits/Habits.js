@@ -59,7 +59,10 @@ export default function Habits() {
       body,
       config
     );
-    promise.then((response) => setHabits([...habits, response.data]));
+    promise.then((response) => {
+      setHabits([...habits, response.data]);
+      setHabitname("")
+    });
   }
 
   return (
@@ -150,7 +153,7 @@ const Weekdays = styled.ul`
 `;
 
 const NewHabitBox = styled.div`
-  background: #fff;
+  background: #1b200e;
   padding: 18px;
   width: auto;
   height: 180px;
@@ -160,10 +163,9 @@ const NewHabitBox = styled.div`
   input {
     width: 100%;
     height: 45px;
+    outline: none;
     margin-bottom: 6px;
     border-radius: 5px;
-    border: 1px #d4d4d4 solid;
-
     padding-left: 11px;
     font-size: 20px;
   }
@@ -177,7 +179,8 @@ const Choices = styled.div`
   justify-content: flex-end;
   button {
     border-radius: 5px;
-    background: #52b6ff;
+    font-size: 16px;
+    background: #734ea0;
     color: #fff;
     width: 84px;
     height: 35px;
@@ -185,7 +188,7 @@ const Choices = styled.div`
   }
   p {
     font-size: 16px;
-    color: #52b6ff;
+    color: #fff;
     line-height: 35px;
     margin-right: 15px;
   }
