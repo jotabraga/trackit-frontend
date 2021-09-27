@@ -29,8 +29,15 @@ export default function Today() {
       `${process.env.REACT_APP_API_BASE_URL}/habits/today`,
       config
     );
-    promise.then((answer) => setDailyhabit(answer.data));
+    promise.then((answer) => {
+      setDailyhabit(answer.data);
+    });
   }, [user.token]);
+
+  useEffect(() => {
+    updateTodayProgress(dailyHabit);
+  }, [updateTodayProgress, dailyHabit] );
+  
 
   function updateHabit(habit) {
     habit.done = !habit.done;
@@ -47,6 +54,14 @@ export default function Today() {
     } else {
       uncheckHabit(habit, body, config);
     }
+  }
+
+  function updateTodayProgress() {
+    const percent = Math.round(
+      (dailyHabit.filter((item) => item.done === true).length/dailyHabit.length)*100);
+      console.log(percent);
+      console.log(dailyHabit);
+    setProgress(percent);     
   }
 
   function checkHabit(habit, body, config){

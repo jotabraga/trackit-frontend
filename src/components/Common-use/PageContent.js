@@ -3,12 +3,11 @@ import styled from "styled-components";
 const PageContent = styled.div`
   width: 100vw;
   display: flex;
-  height: calc(100vh - 140px);
+  height: auto;
   margin-top: 70px;
   margin-bottom: 75px;
   justify-content: first baseline;
-  padding-left: 18px;
-  padding-right: 18px;
+  padding: 18px;
   background: #080808;
   flex-direction: column;
 `;

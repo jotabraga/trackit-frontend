@@ -58,7 +58,7 @@ const TrashCan = styled(TrashFill)`
   color: #fff;
   position: absolute;
   top: 11px;
-  left: 83vw;
+  left: 70vw;
 `;
 const NameContainer = styled.div`
   height: 20px;

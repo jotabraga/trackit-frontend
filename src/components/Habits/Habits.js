@@ -61,7 +61,7 @@ export default function Habits() {
     );
     promise.then((response) => {
       setHabits([...habits, response.data]);
-      setHabitname("")
+      setHabitname("");
     });
   }
 
@@ -114,7 +114,6 @@ export default function Habits() {
           Você não tem nenhum hábito cadastrado ainda. Adicione um hábito para
           começar a trackear!
         </NoHabitsYet>
-   
       </PageContent>
       <Footer />
     </>
@@ -127,14 +126,12 @@ const AddNewHabit = styled.div`
   align-itens: center;
   display: ${(props) => props.visibility};
 `;
-
 const AddIcon = styled(AddSquare)`
   height: 35px;
   width: 35px;
   color: #734ea0;
   margin-left: 10px;
 `;
-
 const NoHabitsYet = styled.div`
   font-size: 18px;
   display: ${(props) => props.visibility};
@@ -142,7 +139,6 @@ const NoHabitsYet = styled.div`
   margin-top: 30px;
   color: #666666;
 `;
-
 const Weekdays = styled.ul`
   display: flex;
   justify-content: space-between;
@@ -151,7 +147,6 @@ const Weekdays = styled.ul`
   width: auto;
   height: auto;
 `;
-
 const NewHabitBox = styled.div`
   background: #1b200e;
   padding: 18px;
@@ -173,7 +168,6 @@ const NewHabitBox = styled.div`
     color: #dbdbdb;
   }
 `;
-
 const Choices = styled.div`
   display: flex;
   justify-content: flex-end;
