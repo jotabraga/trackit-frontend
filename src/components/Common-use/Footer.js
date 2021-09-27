@@ -26,7 +26,7 @@ export default function Footer() {
               transition: "stroke-dashoffset 0.5s ease 0s",
               pathColor: `#81b71a`,
               textColor: "#FFFFFF",
-              trailColor: "#a0e025",
+              trailColor: "#6f7660",
               backgroundColor: "#111111",
             })}
           />

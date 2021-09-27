@@ -36,7 +36,7 @@ export default function Today() {
 
   useEffect(() => {
     updateTodayProgress(dailyHabit);
-  }, [updateTodayProgress, dailyHabit] );
+  }, [updateTodayProgress] );
   
 
   function updateHabit(habit) {
@@ -56,6 +56,7 @@ export default function Today() {
     }
   }
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   function updateTodayProgress() {
     const percent = Math.round(
       (dailyHabit.filter((item) => item.done === true).length/dailyHabit.length)*100);
@@ -111,7 +112,7 @@ export default function Today() {
             <span>Sequência atual: {habit.currentSequence} dia(s)</span>
             <span>Seu recorde: {habit.highestSequence} dia(s)</span>
             <CheckSquare
-              color={habit.done === true ? "#8FC549" : "#EBEBEB"}
+              color={habit.done === true ? "#81b71a" : "#EBEBEB"}
               onClick={() => updateHabit(habit)}
             ></CheckSquare>
           </Routine>
@@ -121,7 +122,6 @@ export default function Today() {
     </>
   );
 }
-
 const Day = styled.div`
   display: flex;
   flex-direction: column;
