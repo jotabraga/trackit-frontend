@@ -60,8 +60,6 @@ export default function Today() {
   function updateTodayProgress() {
     const percent = Math.round(
       (dailyHabit.filter((item) => item.done === true).length/dailyHabit.length)*100);
-      console.log(percent);
-      console.log(dailyHabit);
     setProgress(percent);     
   }
 
