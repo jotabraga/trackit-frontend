@@ -7,7 +7,7 @@ export default function HabitsCheck({ habitName, done }) {
     <>
       <AllHabits>
         <Done state={done}>
-          <h3>- {habitName}</h3>
+          <h3>• {habitName}</h3>
           <p>{done ? "Hábito concluído!" : "Hábito não concluído"}</p>
         </Done>
         <Check state={done}>
@@ -34,7 +34,7 @@ const Done = styled.div`
   h3 {
     font-family: "Lexend Deca", sans-serif;
     font-size: 18px;
-    color: #126ba5;
+    color: #000;
   }
 `;
 

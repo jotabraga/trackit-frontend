@@ -38,7 +38,7 @@ const DayClick = styled.div`
   h2 {
     font-family: "Lexend Deca", sans-serif;
     font-size: 23px;
-    color: #126ba5;
+    color: #679215;
     margin-bottom: 10px;
   }
 `;
@@ -46,7 +46,7 @@ const DayClick = styled.div`
 const Close = styled.div`
   font-family: "Lexend Deca", sans-serif;
   font-size: 16px;
-  color: #52b6ff;
+  color: #734ea0;
   text-align: center;
   margin-top: 10px !important;
 `;
