@@ -2,7 +2,7 @@ import styled from "styled-components";
 import Header from "../Common-use/Header";
 import Footer from "../Common-use/Footer";
 import Calendar from "react-calendar";
-import "react-calendar/dist/Calendar.css";
+import "../../styles/calendar.css";
 import { useContext, useEffect, useState } from "react";
 import UserContext from "../../Contexts/UserContext";
 import dayjs from "dayjs";
@@ -98,10 +98,12 @@ export default function Historic() {
 }
 
 const StyledCalendar = styled(Calendar)`
-  border-radius: 10px;
   border: 0px;
   margin: auto;
+  background: #1b200e;
+  color: #fff;
   width: 90%;
+  height: 60vh;
   .false {
     background-color: #ea5766;
   }
