@@ -101,19 +101,12 @@ export default function MainPage() {
 
 const Register = styled.div`
   width: 100vw;
+  height: 500px;
   background: #080808;
-  padding-top: 68px;
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
+  justify-content: center;
   align-items: center;
-  margin-left: auto;
-  margin-right: auto;
-  img {
-    width: 180px;
-    height: 180px;
-    margin-bottom: 32px;
-  }
   span {
     font-family: "Playball", cursive;
     font-size: 55px;

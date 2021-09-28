@@ -19,8 +19,10 @@ export default function Today() {
   const [dailyHabit, setDailyhabit] = useState([]);
   const { user } = useContext(UserContext);
   const { progress, setProgress } = useContext(ProgressContext);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
+    setLoading(true);
     const config = {
       headers: {
         Authorization: `Bearer ${user.token}`,
@@ -37,8 +39,7 @@ export default function Today() {
 
   useEffect(() => {
     updateTodayProgress(dailyHabit);
-  }, [updateTodayProgress] );
-  
+  }, [updateTodayProgress, dailyHabit]);
 
   function updateHabit(habit) {
     habit.done = !habit.done;
@@ -59,12 +60,21 @@ export default function Today() {
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   function updateTodayProgress() {
+    if (dailyHabit.length === 0) {
+      setProgress(0);
+      setLoading(false);
+      return;
+    }
     const percent = Math.round(
-      (dailyHabit.filter((item) => item.done === true).length/dailyHabit.length)*100);
-    setProgress(percent);     
+      (dailyHabit.filter((item) => item.done === true).length /
+        dailyHabit.length) *
+        100
+    );
+    setProgress(percent);
+    setLoading(false);
   }
 
-  function checkHabit(habit, body, config){
+  function checkHabit(habit, body, config) {
     const promise = axios.post(
       `${process.env.REACT_APP_API_BASE_URL}/habits/${habit.id}/check`,
       body,
@@ -80,13 +90,13 @@ export default function Today() {
     });
   }
 
-  function uncheckHabit(habit, body, config){
+  function uncheckHabit(habit, body, config) {
     const promise = axios.post(
       `${process.env.REACT_APP_API_BASE_URL}/habits/${habit.id}/uncheck`,
       body,
       config
     );
-    promise.then(() => {
+    promise.then(() => {    
       let percent = Math.round(
         (dailyHabit.filter((item) => item.done === true).length /
           dailyHabit.length) *
@@ -100,14 +110,16 @@ export default function Today() {
   return (
     <>
       <Header />
-      <PageContent> 
+      <PageContent>
         <Day>
           <Title>{today}</Title>
-          {progress === undefined || progress === null ? 
-            <Loading background="#9acd32" /> : (
-            <p>
-              progress === 0 ? "Nenhum hábito concluído ainda" : `${progress}% dos hábitos concluídos`
-            </p>)}
+          {loading ? (
+            <Loading background="#9acd32" />
+          ) : progress === 0 ? (
+            <p>Nenhum hábito concluído ainda</p>
+          ) : (
+            <p>{progress}% dos hábitos concluídos</p>
+          )}
         </Day>
         {dailyHabit.map((habit) => (
           <Routine key={habit.id}>
