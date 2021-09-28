@@ -10,6 +10,7 @@ import "react-circular-progressbar/dist/styles.css";
 import Footer from "../Common-use/Footer";
 import PageContent from "../Common-use/PageContent";
 import Title from "../Common-use/Title";
+import { Loading } from "react-loading-dot";
 
 export default function Today() {
   const dayjs = require("dayjs");
@@ -102,7 +103,11 @@ export default function Today() {
       <PageContent> 
         <Day>
           <Title>{today}</Title>
-          <p>{ progress === 0 ? "Nenhum hábito concluído ainda" : `${progress}% dos hábitos concluídos` }</p>
+          {progress === undefined || progress === null ? 
+            <Loading background="#9acd32" /> : (
+            <p>
+              progress === 0 ? "Nenhum hábito concluído ainda" : `${progress}% dos hábitos concluídos`
+            </p>)}
         </Day>
         {dailyHabit.map((habit) => (
           <Routine key={habit.id}>
