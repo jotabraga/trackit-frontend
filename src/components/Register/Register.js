@@ -5,13 +5,13 @@ import axios from "axios";
 import { Link, useHistory } from "react-router-dom";
 import ReactLoading from "react-loading";
 
-export default function MainPage() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [name, setName] = useState("");
-  const [image, setImage] = useState("");
-  const [disabled, setDisabled] = useState(false);
-  const [loading, setLoading] = useState("Cadastrar");
+// export default function MainPage() {
+//   const [email, setEmail] = useState("");
+//   const [password, setPassword] = useState("");
+//   const [name, setName] = useState("");
+//   const [image, setImage] = useState("");
+//   const [disabled, setDisabled] = useState(false);
+//   const [loading, setLoading] = useState("Cadastrar");
 
   let history = useHistory();
 

@@ -14,7 +14,7 @@ export default function Footer() {
       </Link>
       <div className="BarContainer">
         <Link to="/hoje">
-          <CircularProgressbar
+          {/* <CircularProgressbar
             value={progress}
             text={"Hoje"}
             background
@@ -30,7 +30,7 @@ export default function Footer() {
               backgroundColor: "#111111",
             })}
           />
-        </Link>
+        </Link> */}
       </div>
       <Link to="/historico">
         <p>Histórico</p>
