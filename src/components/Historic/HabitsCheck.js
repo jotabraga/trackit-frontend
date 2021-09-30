@@ -5,7 +5,7 @@ import { CloseOutline } from "react-ionicons";
 export default function HabitsCheck({ habitName, done }) {
   return (
     <>
-      <AllHabits>
+      {/* <AllHabits>
         <Done state={done}>
           <h3>• {habitName}</h3>
           <p>{done ? "Hábito concluído!" : "Hábito não concluído"}</p>
@@ -17,7 +17,7 @@ export default function HabitsCheck({ habitName, done }) {
             <CloseOutline color={"#fff"} height="30px" width="30px" />
           )}
         </Check>
-      </AllHabits>
+      </AllHabits> */}
     </>
   );
 }
