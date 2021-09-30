@@ -1,7 +1,7 @@
 # TrackIt 📅
 A helpful daily planner. Organize yourself with this app and improve your performance. 
 ## Preview 👀
-![Trackit_preview](./src/assets/)
+![Trackit_preview](./src/assets/trackit.gif)
 #### [Try it now!](trackit-frontend-gp2nrny24-jotabraga.vercel.app)
 ## About 🔎
 This is an web aplication wich you can organize your daily tasks.
