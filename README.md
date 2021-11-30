@@ -16,6 +16,7 @@ This is an web aplication wich you can organize your daily tasks.
 - [x] See your historic on a calendar
 ### Future improvements 🔮
 - [ ] Refactor code
+- [ ] Reminder function
 - [ ] Aprimorate calendar view (historic)
 - [ ] Improve login persistence
 ## Technologies
